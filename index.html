@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -41,7 +42,8 @@
       border-radius: 8px;
     }
 
-    h1, h2 {
+    h1,
+    h2 {
       color: #3498db;
     }
 
@@ -55,11 +57,43 @@
       line-height: 1.6;
     }
 
-    .contact-info {
+    .top-links {
+      text-align: center;
       margin-top: 1.5rem;
     }
 
-    .teaching-method {
+    .top-links a,
+    .admission-btn {
+      margin: 10px;
+      padding: 10px 15px;
+      color: #ffffff;
+      background-color: #3498db;
+      border-radius: 5px;
+      text-decoration: none;
+      transition: background-color 0.3s ease;
+      display: inline-block;
+    }
+
+    .top-links a:hover,
+    .admission-btn:hover {
+      background-color: #297fb8;
+    }
+
+    .contact-info a,
+    .student-portal a {
+      color: #3498db;
+      text-decoration: none;
+    }
+
+    .contact-info a:hover,
+    .student-portal a:hover {
+      text-decoration: underline;
+    }
+
+    .contact-info,
+    .teaching-method,
+    .student-portal,
+    .top-links {
       margin-top: 2rem;
     }
 
@@ -71,37 +105,26 @@
     .project-list li {
       margin-bottom: 0.5rem;
     }
-
-    /* Clickable links styling */
-    .contact-info a {
-      color: #3498db;
-      text-decoration: none;
-    }
-
-    .contact-info a:hover {
-      text-decoration: underline;
-    }
-
-    .student-portal a {
-      color: #27ae60;
-      text-decoration: none;
-    }
-
-    .student-portal a:hover {
-      text-decoration: underline;
-    }
   </style>
 </head>
+
 <body>
 
   <header>
     <img src="https://imagizer.imageshack.com/img922/8328/PaEOHK.jpg" alt="Your Photo" class="profile-img">
-    <h1>Muhammad Furqan Ali</h1>
+    <h1>Tuitions By Muhammad Furqan Ali</h1>
     <p>Home Tutor | Web Developer</p>
   </header>
 
+  <div class="container top-links">
+    <a href="#aboutMeSection">About Me</a>
+    <a href="studentportal.html" id="studentPortalLink">Student Portal</a>
+    <a href="feedback.html" id="feedbackLink">Feedback</a>
+    <a href="admission.html" class="admission-btn">Admission</a>
+  </div>
+
   <div class="container">
-    <section>
+    <section id="aboutMeSection">
       <h2>About Me</h2>
       <p>I am a dedicated home tutor with a strong background in O level, As level, and secondary education. Currently pursuing A level qualification and have done olevels in the past, I combine my passion for teaching with a flair for web and game development. This website can be an example of my work.</p>
     </section>
@@ -143,12 +166,17 @@
   </div>
 
   <script>
-    // JavaScript function for handling redirection
     document.getElementById('studentPortalLink').addEventListener('click', function(event) {
-      event.preventDefault(); // Prevent the default behavior of the link
-      window.location.href = "studentportal.html"; // Replace with the actual URL or file path
+      event.preventDefault();
+      window.location.href = "studentportal.html";
+    });
+
+    document.querySelector('a[href="#aboutMeSection"]').addEventListener('click', function(event) {
+      event.preventDefault();
+      document.querySelector('#aboutMeSection').scrollIntoView({ behavior: 'smooth' });
     });
   </script>
 
 </body>
+
 </html>
