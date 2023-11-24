@@ -1,0 +1,861 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Interesting Words</title>
+  <style>
+    body {
+      font-family: 'Arial', sans-serif;
+      background-color: #f8f9fa;
+      margin: 0;
+      padding: 20px;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .header {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    .header h1 {
+      color: #3498db;
+      font-size: 2em;
+    }
+
+    .word-card {
+      background-color: #ffffff;
+      border-radius: 8px;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+      margin: 10px;
+      padding: 20px;
+      text-align: center;
+      transition: transform 0.3s ease-in-out;
+      border: 2px solid #3498db;
+      width: 80%;
+    }
+
+    .word-card:hover {
+      transform: scale(1.05);
+      border-color: #e74c3c;
+    }
+
+    h2 {
+      color: #3498db;
+    }
+
+    p {
+      color: #555;
+    }
+
+    table {
+      width: 80%;
+      border-collapse: collapse;
+      margin-top: 20px;
+      border: 2px solid #3498db;
+    }
+
+    th, td {
+      border: 2px solid #3498db;
+      padding: 12px;
+      text-align: left;
+    }
+
+    th {
+      background-color: #3498db;
+      color: #ffffff;
+    }
+  </style>
+</head>
+<body>
+
+<div class="header">
+  <h1>Interesting Words Collection</h1>
+</div>
+
+<div class="word-card">
+  <h2>Fleeting</h2>
+  <p>Lasting for a very short time.</p>
+</div>
+
+<div class="word-card">
+  <h2>Monologue</h2>
+  <p>An act of speaking one's thoughts aloud when by oneself.</p>
+</div>
+
+<div class="word-card">
+  <h2>Chance Discovery</h2>
+  <p>The occurrence and development of events by chance in a happy or beneficial way.</p>
+</div>
+<!-- ... (previous code) -->
+<div class="word-card">
+  <h2>Everywhere</h2>
+  <p>Present, appearing, or found everywhere.</p>
+</div>
+
+<div class="word-card">
+  <h2>Flatterer</h2>
+  <p>A person who acts overly complimentary to gain advantage.</p>
+</div>
+
+<div class="word-card">
+  <h2>Muddy Ground</h2>
+  <p>A soft, boggy area of land that gives way underfoot.</p>
+</div>
+
+<div class="word-card">
+  <h2>Very Hungry</h2>
+  <p>Wanting or devouring great quantities of food.</p>
+</div>
+
+<div class="word-card">
+  <h2>Fading Away</h2>
+  <p>Proceeding in a gradual, subtle way, but with harmful effects.</p>
+</div>
+
+<div class="word-card">
+  <h2>Person Who Complains</h2>
+  <p>Complaining in a whining or petulant manner.</p>
+</div>
+
+<div class="word-card">
+  <h2>Lacking Clarity</h2>
+  <p>Deliberately making something unclear or difficult to understand.</p>
+</div>
+
+<div class="word-card">
+  <h2>Everyday</h2>
+  <p>Occurring every day; commonplace.</p>
+</div>
+
+<div class="word-card">
+  <h2>Cloudy</h2>
+  <p>In the form of a cloud or haze; hazy.</p>
+</div>
+
+<div class="word-card">
+  <h2>Untrustworthy</h2>
+  <p>Deceitful and not reliable.</p>
+</div>
+
+<div class="word-card">
+  <h2>Humorous</h2>
+  <p>Treating serious issues with deliberately inappropriate humor; playful.</p>
+</div>
+
+<div class="word-card">
+  <h2>Different</h2>
+  <p>Essentially different in kind; not allowing comparison.</p>
+</div>
+
+<div class="word-card">
+  <h2>Personal Characteristic</h2>
+  <p>A mode of behavior or way of thought peculiar to an individual.</p>
+</div>
+
+<div class="word-card">
+  <h2>Appearance of Truth</h2>
+  <p>The appearance of being true or real.</p>
+</div>
+
+<div class="word-card">
+  <h2>Unclear</h2>
+  <p>Deliberately making something unclear or difficult to understand.</p>
+</div>
+
+<div class="word-card">
+  <h2>Everyday</h2>
+  <p>Occurring every day; commonplace.</p>
+</div>
+
+<div class="word-card">
+  <h2>Not Easily Upset</h2>
+  <p>Not easily upset or excited; calm and peaceful.</p>
+</div>
+
+<div class="word-card">
+  <h2>Everywhere</h2>
+  <p>Present, appearing, or found everywhere.</p>
+</div>
+
+<div class="word-card">
+  <h2>Second to Last</h2>
+  <p>Second to last in a series.</p>
+</div>
+
+<div class="word-card">
+  <h2>Mysterious</h2>
+  <p>Difficult to interpret or understand; puzzling.</p>
+</div>
+
+<div class="word-card">
+  <h2>Very Hungry</h2>
+  <p>Wanting or devouring great quantities of food.</p>
+</div>
+
+<div class="word-card">
+  <h2>Glowing</h2>
+  <p>Producing a bright light from a heated source.</p>
+</div>
+
+<div class="word-card">
+  <h2>Complaining</h2>
+  <p>Complaining in a whining or petulant manner.</p>
+</div>
+
+<div class="word-card">
+  <h2>Essentially Different</h2>
+  <p>Essentially different in kind; not allowing comparison.</p>
+</div>
+
+<div class="word-card">
+  <h2>Keen Judgment</h2>
+  <p>Having or showing keen mental discernment and good judgment.</p>
+</div>
+
+<div class="word-card">
+  <h2>Insightful</h2>
+  <p>Having a ready insight into and understanding of things.</p>
+</div>
+
+<div class="word-card">
+  <h2>Representing Ideal</h2>
+  <p>Representing the most perfect or typical example of a quality or class.</p>
+</div>
+
+<div class="word-card">
+  <h2>Harmful Effect</h2>
+  <p>Having a harmful effect, especially in a gradual or subtle way.</p>
+</div>
+
+<div class="word-card">
+  <h2>Generous</h2>
+  <p>More generous than is usual or necessary.</p>
+</div>
+
+<div class="word-card">
+  <h2>Enthusiastic</h2>
+  <p>Overflowing with enthusiasm or excitement.</p>
+</div>
+
+<div class="word-card">
+  <h2>Uncooperative</h2>
+  <p>Having an obstinately uncooperative attitude towards authority or discipline.</p>
+</div>
+<!-- ... (previous code) -->
+
+<div class="word-card">
+  <h2>Calm and Peaceful</h2>
+  <p>Not easily upset or excited; calm and peaceful.</p>
+</div>
+
+<div class="word-card">
+  <h2>Everywhere</h2>
+  <p>Present, appearing, or found everywhere.</p>
+</div>
+
+<div class="word-card">
+  <h2>Almost Last</h2>
+  <p>Second to last in a series.</p>
+</div>
+
+<div class="word-card">
+  <h2>Mysterious</h2>
+  <p>Difficult to interpret or understand; puzzling.</p>
+</div>
+
+<div class="word-card">
+  <h2>Very Hungry</h2>
+  <p>Wanting or devouring great quantities of food.</p>
+</div>
+
+<div class="word-card">
+  <h2>Glowing</h2>
+  <p>Producing a bright light from a heated source.</p>
+</div>
+
+<div class="word-card">
+  <h2>Complaining</h2>
+  <p>Expressing dissatisfaction in a whining or petulant manner.</p>
+</div>
+
+<div class="word-card">
+  <h2>Essentially Different</h2>
+  <p>Fundamentally distinct; not allowing comparison.</p>
+</div>
+
+<div class="word-card">
+  <h2>Keen Judgment</h2>
+  <p>Having or showing sharp mental discernment and good judgment.</p>
+</div>
+
+<div class="word-card">
+  <h2>Insightful</h2>
+  <p>Possessing a ready insight into and understanding of things.</p>
+</div>
+
+<div class="word-card">
+  <h2>Representing Ideal</h2>
+  <p>Symbolizing the most perfect or typical example of a quality or class.</p>
+</div>
+
+<div class="word-card">
+  <h2>Harmful Effect</h2>
+  <p>Causing damage, especially in a gradual or subtle way.</p>
+</div>
+
+<div class="word-card">
+  <h2>Generous</h2>
+  <p>More giving than is usual or necessary.</p>
+</div>
+
+<div class="word-card">
+  <h2>Excited</h2>
+  <p>Filled with enthusiasm or excitement.</p>
+</div>
+
+<div class="word-card">
+  <h2>Uncooperative</h2>
+  <p>Resistant to cooperation; having an obstinately uncooperative attitude.</p>
+</div>
+
+<div class="word-card">
+  <h2>Ubiquitous</h2>
+  <p>Seemingly everywhere; widespread.</p>
+</div>
+
+<div class="word-card">
+  <h2>Second to Last</h2>
+  <p>Occurring as the penultimate item in a series.</p>
+</div>
+
+<div class="word-card">
+  <h2>Unexplained</h2>
+  <p>Not easily understood or clarified; mysterious.</p>
+</div>
+
+<div class="word-card">
+  <h2>Hungry</h2>
+  <p>Desiring or consuming large quantities of food.</p>
+</div>
+
+<div class="word-card">
+  <h2>Brilliant</h2>
+  <p>Shining brightly; producing a vivid light.</p>
+</div>
+
+<div class="word-card">
+  <h2>Moaning</h2>
+  <p>Expressing dissatisfaction with a low, mournful sound.</p>
+</div>
+
+<div class="word-card">
+  <h2>Distinct</h2>
+  <p>Clearly perceivable; easily distinguishable.</p>
+</div>
+
+<div class="word-card">
+  <h2>Personal Attribute</h2>
+  <p>An individual's distinctive mode of behavior or thought.</p>
+</div>
+
+<div class="word-card">
+  <h2>Appearance of Truth</h2>
+  <p>The semblance or aspect of being true or real.</p>
+</div>
+
+<div class="word-card">
+  <h2>Confusing</h2>
+  <p>Making something unclear or difficult to comprehend.</p>
+</div>
+
+<div class="word-card">
+  <h2>Everyday</h2>
+  <p>Happening or encountered every day; commonplace.</p>
+</div>
+
+<div class="word-card">
+  <h2>Relaxed</h2>
+  <p>Unhurried and free from tension; calm.</p>
+</div>
+
+<div class="word-card">
+  <h2>Deceptive</h2>
+  <p>Tending to mislead or create a false impression; misleading.</p>
+</div>
+
+<div class="word-card">
+  <h2>Obvious</h2>
+  <p>Easily perceived or understood; clear.</p>
+</div>
+
+<div class="word-card">
+  <h2>Widespread</h2>
+  <p>Occurring or found over a large area; prevalent.</p>
+</div>
+
+<div class="word-card">
+  <h2>Nearly Last</h2>
+  <p>Almost the last in a series.</p>
+</div>
+<!-- ... (previous code) -->
+
+<div class="word-card">
+  <h2>Harmony</h2>
+  <p>A pleasing arrangement or combination of elements; balance.</p>
+</div>
+
+<div class="word-card">
+  <h2>Restless</h2>
+  <p>Unable to stay still or be at ease; anxious.</p>
+</div>
+
+<div class="word-card">
+  <h2>Puzzle</h2>
+  <p>Something that is confusing or difficult to understand; enigma.</p>
+</div>
+
+<div class="word-card">
+  <h2>Greedy</h2>
+  <p>Having an intense desire for more; avaricious.</p>
+</div>
+
+<div class="word-card">
+  <h2>Transparent</h2>
+  <p>Clear and easily understood; see-through.</p>
+</div>
+
+<div class="word-card">
+  <h2>Thriving</h2>
+  <p>Growing or developing well; flourishing.</p>
+</div>
+
+<div class="word-card">
+  <h2>Stubborn</h2>
+  <p>Unwilling to change one's opinion; obstinate.</p>
+</div>
+
+<div class="word-card">
+  <h2>Ubiquitous</h2>
+  <p>Seemingly present everywhere; omnipresent.</p>
+</div>
+
+<div class="word-card">
+  <h2>Prominent</h2>
+  <p>Standing out and easily noticeable; conspicuous.</p>
+</div>
+
+<div class="word-card">
+  <h2>Daring</h2>
+  <p>Willing to take risks; adventurous.</p>
+</div>
+
+<div class="word-card">
+  <h2>Dim</h2>
+  <p>Not bright or distinct; faint.</p>
+</div>
+
+<div class="word-card">
+  <h2>Friendly</h2>
+  <p>Kind and pleasant; amiable.</p>
+</div>
+
+<div class="word-card">
+  <h2>Dynamic</h2>
+  <p>Characterized by constant change, activity, or progress; energetic.</p>
+</div>
+
+<div class="word-card">
+  <h2>Persistent</h2>
+  <p>Continuing firmly or obstinately in a course of action despite difficulty or opposition; tenacious.</p>
+</div>
+
+<div class="word-card">
+  <h2>Innocent</h2>
+  <p>Not guilty of a crime or wrongdoing; blameless.</p>
+</div>
+
+<div class="word-card">
+  <h2>Quaint</h2>
+  <p>Attractively unusual or old-fashioned; charming.</p>
+</div>
+
+<div class="word-card">
+  <h2>Sparkling</h2>
+  <p>Shining brightly with flashes of light; glittering.</p>
+</div>
+
+<div class="word-card">
+  <h2>Enthusiastic</h2>
+  <p>Showing intense and eager enjoyment, interest, or approval; passionate.</p>
+</div>
+
+<div class="word-card">
+  <h2>Adventurous</h2>
+  <p>Willing to take risks or to try out new methods, ideas, or experiences; daring.</p>
+</div>
+
+<div class="word-card">
+  <h2>Deceptive</h2>
+  <p>Intending to mislead or trick; misleading.</p>
+</div>
+
+<div class="word-card">
+  <h2>Delightful</h2>
+  <p>Causing delight; charming.</p>
+</div>
+
+<div class="word-card">
+  <h2>Lively</h2>
+  <p>Full of life, energy, and enthusiasm; vibrant.</p>
+</div>
+
+<div class="word-card">
+  <h2>Comprehensible</h2>
+  <p>Able to be understood; clear.</p>
+</div>
+
+<div class="word-card">
+  <h2>Innovative</h2>
+  <p>Introducing new ideas; creative.</p>
+</div>
+
+<div class="word-card">
+  <h2>Harmonious</h2>
+  <p>Forming a consistent and orderly whole; balanced.</p>
+</div>
+
+<div class="word-card">
+  <h2>Plentiful</h2>
+  <p>Existing in or yielding an abundance; abundant.</p>
+</div>
+
+<div class="word-card">
+  <h2>Sincere</h2>
+  <p>Free from pretense or deceit; honest.</p>
+</div>
+
+<div class="word-card">
+  <h2>Dynamic</h2>
+  <p>Characterized by constant change, activity, or progress; energetic.</p>
+</div>
+<!-- ... (previous code) -->
+
+<div class="word-card">
+  <h2>Content</h2>
+  <p>Satisfied and at ease; fulfilled.</p>
+</div>
+
+<div class="word-card">
+  <h2>Solid</h2>
+  <p>Firm and stable; not easily changed or broken.</p>
+</div>
+
+<div class="word-card">
+  <h2>Pleasant</h2>
+  <p>Enjoyable and agreeable; nice.</p>
+</div>
+
+<div class="word-card">
+  <h2>Active</h2>
+  <p>Engaged in physical or mental activity; lively.</p>
+</div>
+
+<div class="word-card">
+  <h2>Vibrant</h2>
+  <p>Full of energy and life; dynamic.</p>
+</div>
+
+<div class="word-card">
+  <h2>Sweet</h2>
+  <p>Pleasantly fragrant or flavorful; sugary.</p>
+</div>
+
+<div class="word-card">
+  <h2>Firm</h2>
+  <p>Strong and stable; not easily moved or changed.</p>
+</div>
+
+<div class="word-card">
+  <h2>Warm</h2>
+  <p>Mild or moderately hot; friendly and cordial.</p>
+</div>
+
+<div class="word-card">
+  <h2>Wise</h2>
+  <p>Having or showing good judgment; intelligent.</p>
+</div>
+
+<div class="word-card">
+  <h2>Resilient</h2>
+  <p>Able to recover quickly from difficult conditions; strong.</p>
+</div>
+
+<div class="word-card">
+  <h2>Charming</h2>
+  <p>Pleasant and attractive; delightful.</p>
+</div>
+
+<div class="word-card">
+  <h2>Cozy</h2>
+  <p>Giving a feeling of comfort and warmth; snug.</p>
+</div>
+
+<div class="word-card">
+  <h2>Joyful</h2>
+  <p>Full of joy and happiness; blissful.</p>
+</div>
+
+<div class="word-card">
+  <h2>Clever</h2>
+  <p>Quick-witted and intelligent; smart.</p>
+</div>
+
+<div class="word-card">
+  <h2>Soothing</h2>
+  <p>Calm and comforting; relaxing.</p>
+</div>
+
+<div class="word-card">
+  <h2>Steady</h2>
+  <p>Firm and unwavering; consistent.</p>
+</div>
+
+<div class="word-card">
+  <h2>Jubilant</h2>
+  <p>Feeling or expressing great joy; exultant.</p>
+</div>
+
+<div class="word-card">
+  <h2>Focused</h2>
+  <p>Concentrated and attentive; directed towards a goal.</p>
+</div>
+
+<div class="word-card">
+  <h2>Efficient</h2>
+  <p>Capable of producing desired results with minimal waste; productive.</p>
+</div>
+
+<div class="word-card">
+  <h2>Thrifty</h2>
+  <p>Using money and resources wisely; economical.</p>
+</div>
+
+<div class="word-card">
+  <h2>Radiant</h2>
+  <p>Glowing with happiness, confidence, or beauty; shining.</p>
+</div>
+
+<div class="word-card">
+  <h2>Tranquil</h2>
+  <p>Free from disturbance or turmoil; calm.</p>
+</div>
+
+<div class="word-card">
+  <h2>Adaptable</h2>
+  <p>Capable of adjusting to different conditions; flexible.</p>
+</div>
+
+<div class="word-card">
+  <h2>Mild</h2>
+  <p>Gentle and not harsh; moderate.</p>
+</div>
+
+<div class="word-card">
+  <h2>Joyful</h2>
+  <p>Experiencing or causing joy; happy.</p>
+</div>
+
+<div class="word-card">
+  <h2>Graceful</h2>
+  <p>Having or showing elegance and beauty in movement or appearance.</p>
+</div>
+
+<div class="word-card">
+  <h2>Reliable</h2>
+  <p>Consistently good in quality or performance; trustworthy.</p>
+</div>
+
+<div class="word-card">
+  <h2>Lively</h2>
+  <p>Filled with energy and enthusiasm; animated.</p>
+</div>
+
+<div class="word-card">
+  <h2>Cheerful</h2>
+  <p>Feeling or showing happiness; joyful.</p>
+</div>
+
+<div class="word-card">
+  <h2>Gentle</h2>
+  <p>Mild in temperament or behavior; kind.</p>
+</div>
+<!-- ... (previous code) -->
+
+<div class="word-card">
+  <h2>Fascinating</h2>
+  <p>Extremely interesting or captivating; intriguing.</p>
+</div>
+
+<div class="word-card">
+  <h2>Courageous</h2>
+  <p>Brave and willing to face challenges; bold.</p>
+</div>
+
+<div class="word-card">
+  <h2>Genuine</h2>
+  <p>Authentic and true; not fake or imitation.</p>
+</div>
+
+<div class="word-card">
+  <h2>Effortless</h2>
+  <p>Seeming to require little or no effort; easy.</p>
+</div>
+
+<div class="word-card">
+  <h2>Sociable</h2>
+  <p>Friendly and enjoys being with others; outgoing.</p>
+</div>
+
+<div class="word-card">
+  <h2>Admirable</h2>
+  <p>Deserving respect and approval; commendable.</p>
+</div>
+
+<div class="word-card">
+  <h2>Resourceful</h2>
+  <p>Able to find quick and clever solutions; inventive.</p>
+</div>
+
+<div class="word-card">
+  <h2>Optimistic</h2>
+  <p>Hopeful and confident about the future; positive.</p>
+</div>
+
+<div class="word-card">
+  <h2>Dynamic</h2>
+  <p>Characterized by constant change, activity, or progress; energetic.</p>
+</div>
+
+<div class="word-card">
+  <h2>Compassionate</h2>
+  <p>Feeling or showing sympathy and concern for others; empathetic.</p>
+</div>
+
+<div class="word-card">
+  <h2>Versatile</h2>
+  <p>Capable of adapting to various tasks or activities; flexible.</p>
+</div>
+
+<div class="word-card">
+  <h2>Gentle</h2>
+  <p>Mild in temperament or behavior; kind.</p>
+</div>
+
+<div class="word-card">
+  <h2>Exquisite</h2>
+  <p>Beautifully made or designed; delicate.</p>
+</div>
+
+<div class="word-card">
+  <h2>Jovial</h2>
+  <p>Friendly and good-humored; cheerful.</p>
+</div>
+
+<div class="word-card">
+  <h2>Cordial</h2>
+  <p>Warm and friendly; amiable.</p>
+</div>
+
+<div class="word-card">
+  <h2>Inventive</h2>
+  <p>Creative and capable of thinking up new ideas; innovative.</p>
+</div>
+
+<div class="word-card">
+  <h2>Respectful</h2>
+  <p>Showing consideration and esteem for others; polite.</p>
+</div>
+
+<div class="word-card">
+  <h2>Stellar</h2>
+  <p>Exceptionally good; outstanding.</p>
+</div>
+
+<div class="word-card">
+  <h2>Exuberant</h2>
+  <p>Filled with enthusiasm and energy; lively.</p>
+</div>
+
+<div class="word-card">
+  <h2>Quaint</h2>
+  <p>Attractively unusual or old-fashioned; charming.</p>
+</div>
+
+<div class="word-card">
+  <h2>Gracious</h2>
+  <p>Marked by kindness and courtesy; courteous.</p>
+</div>
+
+<div class="word-card">
+  <h2>Sensible</h2>
+  <p>Practical and reasoned; logical.</p>
+</div>
+
+<div class="word-card">
+  <h2>Joyful</h2>
+  <p>Experiencing or causing joy; happy.</p>
+</div>
+
+<div class="word-card">
+  <h2>Adventurous</h2>
+  <p>Willing to take risks or to try out new methods, ideas, or experiences; daring.</p>
+</div>
+
+<div class="word-card">
+  <h2>Fabulous</h2>
+  <p>Extraordinarily good; fantastic.</p>
+</div>
+
+<div class="word-card">
+  <h2>Adaptable</h2>
+  <p>Capable of adjusting to different conditions; flexible.</p>
+</div>
+
+<div class="word-card">
+  <h2>Engaging</h2>
+  <p>Capturing and holding one's interest; charming.</p>
+</div>
+
+<div class="word-card">
+  <h2>Wholesome</h2>
+  <p>Conducive to or suggestive of good health and physical well-being; healthy.</p>
+</div>
+
+<div class="word-card">
+  <h2>Harmonious</h2>
+  <p>Forming a consistent and orderly whole; balanced.</p>
+</div>
+
+<div class="word-card">
+  <h2>Lighthearted</h2>
+  <p>Free from care or worry; cheerful.</p>
+</div>
+
+<div class="word-card">
+  <h2>Steadfast</h2>
+  <p>Firmly loyal and unwavering; resolute.</p>
+</div>
+
+<!-- ... (previous code) -->
+<!-- ... (previous code) -->
+<!-- ... (previous code) -->
+<!-- ... (previous code) -->
+<!-- Add more simplified word cards here -->
+<!-- ... (previous code) -->
+
+</body>
+</html>
