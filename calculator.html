@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculator by Muhammad Furqan Ali</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f4f4f4;
+        }
+
+        #calculator {
+            background-color: #ffffff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            text-align: center;
+            padding: 20px;
+        }
+
+        h1 {
+            margin-top: 10px;
+            color: #333;
+        }
+
+        #display {
+            height: 70px;
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            padding: 0 15px;
+            font-size: 1.5em;
+            background-color: #f0f0f0;
+            margin-bottom: 10px;
+        }
+
+        #buttons {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 10px;
+        }
+
+        button {
+            padding: 15px;
+            font-size: 1.2em;
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        button.operator {
+            background-color: #ff8c00;
+            color: #ffffff;
+        }
+
+        button.double {
+            grid-column: span 2;
+        }
+
+        button.equal {
+            background-color: #4caf50;
+            color: #ffffff;
+            grid-column: span 2; /* Adjusted to span 2 columns */
+        }
+
+        button:hover {
+            background-color: #e0e0e0;
+        }
+    </style>
+</head>
+<body>
+    <div id="calculator">
+        <h1>Calculator By Muhammad Furqan Ali</h1>
+        <div id="display"></div>
+        <div id="buttons">
+            <!-- Number buttons -->
+            <button onclick="addToDisplay('7')">7</button>
+            <button onclick="addToDisplay('8')">8</button>
+            <button onclick="addToDisplay('9')">9</button>
+            <button class="operator" onclick="addToDisplay('/')">/</button>
+
+            <button onclick="addToDisplay('4')">4</button>
+            <button onclick="addToDisplay('5')">5</button>
+            <button onclick="addToDisplay('6')">6</button>
+            <button class="operator" onclick="addToDisplay('*')">*</button>
+
+            <button onclick="addToDisplay('1')">1</button>
+            <button onclick="addToDisplay('2')">2</button>
+            <button onclick="addToDisplay('3')">3</button>
+            <button class="operator" onclick="addToDisplay('-')">-</button>
+
+            <button class="double" onclick="addToDisplay('0')">0</button>
+            <button onclick="addToDisplay('.')">.</button>
+            <button class="operator" onclick="addToDisplay('+')">+</button>
+
+            <!-- Special buttons -->
+            <button class="equal" onclick="calculate()">=</button>
+            <button onclick="clearDisplay()">C</button>
+            <button onclick="deleteLast()">DEL</button>
+        </div>
+    </div>
+
+    <script>
+        let display = document.getElementById('display');
+        // Initialize the display with an empty string
+        display.textContent = '';
+
+        function addToDisplay(value) {
+            if (display.textContent === 'Error') {
+                clearDisplay();
+            }
+            display.textContent += value;
+        }
+
+        function clearDisplay() {
+            display.textContent = '';
+        }
+
+        function deleteLast() {
+            display.textContent = display.textContent.slice(0, -1);
+        }
+
+        function calculate() {
+            try {
+                display.textContent = eval(display.textContent);
+            } catch (error) {
+                display.textContent = 'Error';
+            }
+        }
+    </script>
+</body>
+</html>
