@@ -144,85 +144,116 @@
         <br>
         <button onclick="appendToDisplay('9')">9</button>
         <button onclick="appendToDisplay('0')">0</button>
-        <button onclick="appendToDisplay('+')" class="operator">+</button>
-        <button onclick="appendToDisplay('-')" class="operator">-</button>
-        <br>
-        <button onclick="appendToDisplay('*')" class="operator">*</button>
-        <button onclick="appendToDisplay('/')" class="operator">/</button>
-        <button id="equals" onclick="calculateResult()">=</button>
-        <button id="clear" onclick="clearDisplay()">C</button>
-    </div>
-
-    <script>
-        function showWelcomeNotification() {
-            alert('PARHLOOOO!');
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Welcome Zoya</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            text-align: center;
         }
 
-        window.onload = showWelcomeNotification;
-
-        function showImage(type) {
-            var contentDiv = document.getElementById('content');
-            if (type === 'homework') {
-                contentDiv.innerHTML = '<img src="essay.jpg" alt="Homework Image">';
-            } else if (type === 'test') {
-                contentDiv.innerHTML = '<img src="zoyatest2.jpg" alt="Test Image">';
-            }
+        h1 {
+            color: #3498db;
         }
 
-        function showMarks() {
-            var contentDiv = document.getElementById('content');
-            contentDiv.innerHTML = '<table border="1">' +
-                '<tr><th>Test</th><th>Mark</th></tr>' +
-                '<tr><td>Test 1</td><td>85%</td></tr>' +
-                '<tr><td>Test 2</td><td>75%</td></tr>' +
-                '<tr><td>Test 3</td><td>93%</td></tr>' +
-                '<tr><td>Test 4</td><td>73%</td></tr>' +
-                '<tr><td>Test 5</td><td>84%</td></tr>' +
-                '<tr><td>Test 6</td><td>87%</td></tr>' +
-                '<tr><td>Test 7</td><td>60%</td></tr>' +
-                '<tr><td>Test 8</td><td>94%</td></tr>' +
-                '<tr><td>Test 9</td><td>94%</td></tr>' +
-                '<tr><td>Test 10</td><td>N/A</td></tr>' +
-                '</table>';
+        ul {
+            list-style-type: none;
+            padding: 0;
+            margin: 20px 0;
         }
 
-        function showCalculator() {
-            var calculatorDiv = document.getElementById('calculator');
-            calculatorDiv.style.display = 'block';
+        li {
+            display: inline-block;
+            margin-right: 20px;
         }
 
-        function hideCalculator() {
-            var calculatorDiv = document.getElementById('calculator');
-            calculatorDiv.style.display = 'none';
+        a {
+            text-decoration: none;
+            color: #2c3e50;
+            font-weight: bold;
+            font-size: 18px;
+            transition: color 0.3s;
         }
 
-        function appendToDisplay(value) {
-            var display = document.getElementById('calc-display');
-            display.value += value;
+        a:hover {
+            color: #3498db;
         }
 
-        function clearDisplay() {
-            var display = document.getElementById('calc-display');
-            display.value = '';
+        #content {
+            margin-top: 20px;
         }
 
-        function calculateResult() {
-            var display = document.getElementById('calc-display');
-            try {
-                display.value = eval(display.value);
-            } catch (error) {
-                display.value = 'Error';
-            }
+        img {
+            max-width: 100%;
+            height: auto;
         }
 
-        // Call this function to close the calculator
-        function closeCalculator() {
-            hideCalculator();
-            clearDisplay();
+        table {
+            width: 50%;
+            margin: 20px auto;
+            border-collapse: collapse;
         }
-    </script>
 
-    <button onclick="showCalculator()">Open Calculator</button>
+        th, td {
+            padding: 10px;
+            border: 1px solid #2c3e50;
+            text-align: center;
+        }
+
+        th {
+            background-color: #3498db;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Welcome Zoya</h1>
+
+    <ul>
+        <li><a href="#" onclick="showImage('homework')">Homework</a></li>
+        <li><a href="#" onclick="showImage('test')">Test</a></li>
+        <li><a href="#" onclick="showMarks()">Marks</a></li>
+        <li><a href="vocab.html">Vocabulary</a></li>
+        <li><a href="calculator.html">Calculator</a></li> <!-- New calculator option -->
+    </ul>
+
+    <div id="content"></div>
+
+<script>
+    function showImage(type) {
+        var contentDiv = document.getElementById('content');
+        if (type === 'homework') {
+            contentDiv.innerHTML = '<img src="essay.jpg" alt="Homework Image">';
+        } else if (type === 'test') {
+            contentDiv.innerHTML = '<img src="zoyatest2.jpg" alt="Test Image">';
+        }
+    }
+
+    function showMarks() {
+        var contentDiv = document.getElementById('content');
+        contentDiv.innerHTML = '<table border="1">' +
+            '<tr><th>Test</th><th>Mark</th></tr>' +
+            '<tr><td>Test 1</td><td>85%</td></tr>' +
+            '<tr><td>Test 2</td><td>75%</td></tr>' +
+            '<tr><td>Test 3</td><td>93%</td></tr>' +
+            '<tr><td>Test 4</td><td>73%</td></tr>' +
+            '<tr><td>Test 5</td><td>84%</td></tr>' +
+            '<tr><td>Test 6</td><td>87%</td></tr>' +
+            '<tr><td>Test 7</td><td>60%</td></tr>' +
+            '<tr><td>Test 8</td><td>94%</td></tr>' +
+            '<tr><td>Test 9</td><td>94%</td></tr>' +
+            '<tr><td>Test 10</td><td>N/A</td></tr>' +
+            '</table>';
+    }
+</script>
 
 </body>
 </html>
