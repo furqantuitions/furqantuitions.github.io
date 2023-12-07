@@ -27,7 +27,7 @@ function showMarks() {
         '<tr><td>Test 14</td><td>60%</td></tr>' +
         '<tr><td>Test 15</td><td>95%</td></tr>' +
         '<tr><td>Test 16</td><td>94%</td></tr>' +
-        '<tr><td>Test 17</td><td>N/A</td></tr>' +
+        '<tr><td>Test 17</td><td>86%</td></tr>' +
         '<tr><td>Test 18</td><td>N/A</td></tr>' +
         '<tr><td>Test 19</td><td>N/A</td></tr>' +
         '<tr><td>Test 20</td><td>N/A</td></tr>' +
