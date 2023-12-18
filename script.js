@@ -8,17 +8,28 @@ function showImage(type) {
 
 function showContent(type, file) {
     var contentDiv = document.getElementById('content');
-    
-    // Browser detection
-    var isFirefox = typeof InstallTrigger !== 'undefined';
-    
+
+    // Check if the type is 'test'
     if (type === 'test') {
-        if (isFirefox) {
-            // For Firefox, use iframe
-            contentDiv.innerHTML = '<iframe src="' + file + '" width="100%" height="600px"></iframe>';
+        // Prompt the user for a password
+        var password = prompt('Enter the password:');
+
+        // Check if the password is correct
+        if (password === 'yourSecretPassword') {
+            // Browser detection
+            var isFirefox = typeof InstallTrigger !== 'undefined';
+
+            // Display the PDF using iframe or embed based on the browser
+            if (isFirefox) {
+                // For Firefox, use iframe
+                contentDiv.innerHTML = '<iframe src="' + file + '" width="100%" height="600px"></iframe>';
+            } else {
+                // For other browsers, use embed
+                contentDiv.innerHTML = '<embed src="' + file + '" type="application/pdf" width="100%" height="600px"></embed>';
+            }
         } else {
-            // For other browsers, use embed
-            contentDiv.innerHTML = '<embed src="' + file + '" type="application/pdf" width="100%" height="600px"></embed>';
+            // Display a message if the password is incorrect
+            contentDiv.innerHTML = '<p>Incorrect password. Access denied.</p>';
         }
     }
 }
