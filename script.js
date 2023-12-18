@@ -15,7 +15,7 @@ function showContent(type, file) {
         var password = prompt('Enter the password:');
 
         // Check if the password is correct
-        if (password === 'yourSecretPassword') {
+        if (password !== null && password.trim() === 'yourSecretPassword') {
             // Browser detection
             var isFirefox = typeof InstallTrigger !== 'undefined';
 
@@ -28,12 +28,12 @@ function showContent(type, file) {
                 contentDiv.innerHTML = '<embed src="' + file + '" type="application/pdf" width="100%" height="600px"></embed>';
             }
         } else {
-            // Display a message if the password is incorrect
-            contentDiv.innerHTML = '<p>Incorrect password. Access denied.</p>';
+            // Clear the content if the password is incorrect or canceled
+            contentDiv.innerHTML = '';
+            alert('Incorrect password or operation canceled. Access denied.');
         }
     }
 }
-
 function showPracticescores() {
     var contentDiv = document.getElementById('content');
     contentDiv.innerHTML = '<table border="1">' +
