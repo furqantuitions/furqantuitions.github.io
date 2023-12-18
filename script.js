@@ -28,7 +28,7 @@ function showPracticescores() {
     contentDiv.innerHTML = '<table border="1">' +
         '<tr><th>Test</th><th>Mark</th></tr>' +
         '<tr><td>Test 1</td><td>NA%</td></tr>' +
-        '<tr><td>Test 2</td><td>NA%</td></tr>' +
+        '<tr><td>Test 2</td><td>95%</td></tr>' +
         '<tr><td>Test 3</td><td>90%</td></tr>' +
         '<tr><td>Test 4</td><td>89%</td></tr>' +
         '<tr><td>Test 5</td><td>100%</td></tr>' +
