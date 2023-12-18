@@ -15,7 +15,7 @@ function showContent(type, file) {
         var password = prompt('Enter the password:');
 
         // Check if the password is correct
-        if (password !== null && password.trim() === 'yourSecretPassword') {
+        if (password !== null && password.trim() === 'nocheating') {
             // Browser detection
             var isFirefox = typeof InstallTrigger !== 'undefined';
 
