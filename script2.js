@@ -67,7 +67,7 @@ function showPracticescores() {
                 '<tr><td>Test 2</td><td>84%</td></tr>' +
                 '<tr><td>Test 3</td><td>95%</td></tr>' +
                 '<tr><td>Test 4</td><td>88%</td></tr>' +
-                '<tr><td>Test 5</td><td>N/A</td></tr>' +
+                '<tr><td>Test 5</td><td>83%</td></tr>' +
                 '<tr><td>Test 6</td><td>N/A</td></tr>' +
                 '<tr><td>Test 7</td><td>N/A</td></tr>' +
                 '<tr><td>Test 8</td><td>N/A</td></tr>' +
