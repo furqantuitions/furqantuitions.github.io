@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Welcome Shahbaz</title>
+    <link rel="stylesheet" href="shahbazstyles.css">
+</head>
+
+<body>
+
+        <h1><br>Welcome Shahbaz</h1>
+        <br>
+<div class="wrapper">
+        <button onclick="showClassDetails()">Class Details</button>
+        <button onclick="showWorksheets()">Worksheets</button>
+        <button onclick="showTests()">Tests</button>
+        <button onclick="showMarks()">Marks</button>
+        </div>
+
+    <div class="container">
+        <div id="classDetails" class="content" style="display:block;">
+            <h2>Class Details<br><h6>(All times are according to KSA time zone)</h6></h2>
+<table>
+    <tr>
+        <th>Day</th>
+        <th>Time</th>
+        <th>Subject</th> 
+    </tr>
+    <tr>
+        <td>Monday</td>
+        <td>12:00 pm - 1:00 pm</td>
+        <td>Maths</td> 
+    </tr>
+    <tr>
+        <td>Tuesday</td>
+        <td>12:00 pm - 1:00 pm</td>
+        <td>English</td>
+    </tr>
+    <tr>
+        <td>Thursday</td>
+        <td>12:00 pm - 1:00 pm</td>
+        <td>Science</td>
+    </tr>
+</table>
+            <button onclick="joinClass()">Join Class</button>
+        </div>
+
+        <div id="worksheets" class="content" style="display:none;">
+            <h2>Worksheets</h2>
+                          <!--   <ul>
+                <li><a href="worksheet1.pdf" target="_blank">Worksheet 1</a></li>
+                <li><a href="worksheet2.pdf" target="_blank">Worksheet 2</a></li>
+            </ul> -->
+            <h6>WORKSHEETS WILL APPEAR HERE</h6>
+        </div>
+
+        <div id="tests" class="content" style="display:none;">
+            <h2>Tests</h2>
+            <h6>TESTS WILL APPEAR HERE</h6>
+        </div>
+
+        <div id="marks" class="content" style="display:none;">
+            <h2>Marks</h2>
+                <!-- <table border="1">
+                <tr>
+                    <th>Test No</th>
+                    <th>Marks</th>
+                </tr>
+                <tr>
+                    <td>1</td>
+                    <td>90</td>
+                </tr>
+                <tr>
+                    <td>2</td>
+                    <td>85</td>
+                </tr>
+            </table> -->
+            <h6>TEST MARKS WILL APPEAR HERE</h6>
+        </div>
+    </div>
+
+    <script>
+                function showClassDetails() {
+            hideAll();
+            document.getElementById("classDetails").style.display = "block";
+        }
+
+        function showWorksheets() {
+            hideAll();
+            document.getElementById("worksheets").style.display = "block";
+        }
+
+        function showTests() {
+            hideAll();
+            document.getElementById("tests").style.display = "block";
+        }
+
+        function showMarks() {
+            hideAll();
+            document.getElementById("marks").style.display = "block";
+        }
+
+        function hideAll() {
+            document.getElementById("classDetails").style.display = "none";
+            document.getElementById("worksheets").style.display = "none";
+            document.getElementById("tests").style.display = "none";
+            document.getElementById("marks").style.display = "none";
+        }
+
+function joinClass() {
+    window.location.href = "https://meet.google.com/sta-szfk-bbr";
+}
+    </script>
+
+</body>
+
+</html>
