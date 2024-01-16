@@ -18,9 +18,8 @@
         <button onclick="showTests()">Tests</button>
         <button onclick="showMarks()">Marks</button>
         </div>
-
-    <div class="container">
-        <div id="classDetails" class="content" style="display:block;">
+<div id="classDetails" class="content" style="display:none;">
+        <div class="container">
             <h2>Class Details<br><h6>(All times are according to KSA time zone)</h6></h2>
 <table>
     <tr>
@@ -46,8 +45,9 @@
 </table>
             <button onclick="joinClass()">Join Class</button>
         </div>
-
+</div>
         <div id="worksheets" class="content" style="display:none;">
+             <div class="container">
             <h2>Worksheets</h2>
                           <!--   <ul>
                 <li><a href="worksheet1.pdf" target="_blank">Worksheet 1</a></li>
@@ -55,13 +55,15 @@
             </ul> -->
             <h6>WORKSHEETS WILL APPEAR HERE</h6>
         </div>
-
+</div>
         <div id="tests" class="content" style="display:none;">
+                <div class="container">
             <h2>Tests</h2>
             <h6>TESTS WILL APPEAR HERE</h6>
         </div>
-
+</div>
         <div id="marks" class="content" style="display:none;">
+                <div class="container">
             <h2>Marks</h2>
                 <!-- <table border="1">
                 <tr>
@@ -80,7 +82,7 @@
             <h6>TEST MARKS WILL APPEAR HERE</h6>
         </div>
     </div>
-
+</div>
     <script>
                 function showClassDetails() {
             hideAll();
