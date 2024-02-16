@@ -53,7 +53,9 @@
                 <li><a href="mathsworksheet1.pdf" target="_blank">Maths Worksheet 1</a></li>
                 <li><a href="mathsworksheet2.pdf" target="_blank">Maths Worksheet 2</a></li>
                          </ul>
-           
+        <br>  <h1>submit homework</h1>
+  <input type="file" id="fileInput" accept=".jpg"><br>
+  <button onclick="uploadImage()">submit</button>
         </div>
 </div>
         <div id="tests" class="content" style="display:none;">
@@ -83,7 +85,46 @@
         </div>
     </div>
 </div>
+    
+      <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-storage.js"></script>
     <script>
+            // Your web app's Firebase configuration
+    var firebaseConfig = {
+        apiKey: "AIzaSyCbHb_MfnMuSJSLQsNc_y2Rh3olX8Qt_B8",
+  authDomain: "new-check-entep.firebaseapp.com",
+  projectId: "new-check-entep",
+  storageBucket: "new-check-entep.appspot.com",
+  messagingSenderId: "825195389121",
+  appId: "1:825195389121:web:15cccdb2421ff0e8057440",
+  measurementId: "G-KQLJBJM649"
+};
+
+    // Initialize Firebase
+    firebase.initializeApp(firebaseConfig);
+
+    function uploadImage() {
+      var fileInput = document.getElementById('fileInput');
+      var file = fileInput.files[0];
+      var storageRef = firebase.storage().ref('images/' + file.name);
+      var uploadTask = storageRef.put(file);
+
+      uploadTask.on('state_changed', 
+        function(snapshot) {
+          // Observe state change events such as progress, pause, and resume
+        }, 
+        function(error) {
+          // Handle unsuccessful uploads
+          console.error('Error uploading image: ', error);
+        }, 
+        function() {
+          // Handle successful uploads on complete
+          uploadTask.snapshot.ref.getDownloadURL().then(function(downloadURL) {
+            console.log('File available at', downloadURL);
+          });
+        }
+      );
+    }
                 function showClassDetails() {
             hideAll();
             document.getElementById("classDetails").style.display = "block";
