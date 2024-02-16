@@ -48,12 +48,12 @@
 </div>
         <div id="worksheets" class="content" style="display:none;">
              <div class="container">
-            <h2>Worksheets</h2>
+            <h2>Homework</h2>
                             <ul>
                 <li><a href="mathsworksheet1.pdf" target="_blank">Maths Worksheet 1</a></li>
                 <li><a href="mathsworksheet2.pdf" target="_blank">Maths Worksheet 2</a></li>
                          </ul>
-        <br>  <h1>submit homework</h1>
+        <br>  <h2>submit homework</h2>
   <input type="file" id="fileInput" accept=".jpg"><br>
   <button onclick="uploadImage()">submit</button>
         </div>
@@ -101,30 +101,33 @@
 };
 
     // Initialize Firebase
-    firebase.initializeApp(firebaseConfig);
+firebase.initializeApp(firebaseConfig);
 
-    function uploadImage() {
-      var fileInput = document.getElementById('fileInput');
-      var file = fileInput.files[0];
-      var storageRef = firebase.storage().ref('images/' + file.name);
-      var uploadTask = storageRef.put(file);
+function uploadImage() {
+  var fileInput = document.getElementById('fileInput');
+  var file = fileInput.files[0];
+  var storageRef = firebase.storage().ref('images/' + file.name);
+  var uploadTask = storageRef.put(file);
 
-      uploadTask.on('state_changed', 
-        function(snapshot) {
-          // Observe state change events such as progress, pause, and resume
-        }, 
-        function(error) {
-          // Handle unsuccessful uploads
-          console.error('Error uploading image: ', error);
-        }, 
-        function() {
-          // Handle successful uploads on complete
-          uploadTask.snapshot.ref.getDownloadURL().then(function(downloadURL) {
-            console.log('File available at', downloadURL);
-          });
-        }
-      );
+  uploadTask.on('state_changed', 
+    function(snapshot) {
+      // Observe state change events such as progress, pause, and resume
+    }, 
+    function(error) {
+      // Handle unsuccessful uploads
+      console.error('Error uploading image: ', error);
+      alert('Error uploading image: ' + error.message);
+    }, 
+    function() {
+      // Handle successful uploads on complete
+      uploadTask.snapshot.ref.getDownloadURL().then(function(downloadURL) {
+        console.log('File available at', downloadURL);
+        alert('Image uploaded successfully!');
+        fileInput.value = ''; // Clear input field
+      });
     }
+  );
+}
                 function showClassDetails() {
             hideAll();
             document.getElementById("classDetails").style.display = "block";
