@@ -45,14 +45,10 @@
 </table>
             <button onclick="joinClass()">Join Class</button>
         </div>
-</div>
-        <div id="worksheets" class="content" style="display:none;">
+</div><div id="worksheets" class="content" style="display:none;">
              <div class="container">
             <h2>Homework</h2>
-                            <ul>
-                <li><a href="mathsworksheet1.pdf" target="_blank">Maths Worksheet 1</a></li>
-                <li><a href="mathsworksheet2.pdf" target="_blank">Maths Worksheet 2</a></li>
-                         </ul>
+<ul id="menu-container"></ul>
         <br>  <h2>submit homework</h2>
   <input type="file" id="fileInput" accept=".jpg"><br>
   <button onclick="uploadImage()">submit</button>
@@ -87,6 +83,7 @@
 </div>
     
       <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-app.js"></script>
+      <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-database.js"></script>
   <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-storage.js"></script>
     <script>
             // Your web app's Firebase configuration
@@ -158,6 +155,29 @@ function uploadImage() {
 function joinClass() {
     window.location.href = "https://meet.google.com/sta-szfk-bbr";
 }
+              const menuRef = firebase.database().ref('homework');
+
+    // Fetch the data from Firebase
+    menuRef.on('value', (snapshot) => {
+      const menuData = snapshot.val();
+      const menuContainer = document.getElementById('menu-container');
+
+      // Clear existing menu items
+      menuContainer.innerHTML = '';
+
+      // Display the data
+      Object.values(menuData).forEach((menuItem) => {
+        const { name, email, contactNo, purpose } = menuItem;
+
+        const listItem = document.createElement('li');
+        listItem.innerHTML = `
+          <strong>Homework:</strong>  <a href="${purpose}">click </a><br>
+          -----------------------<br>
+        `;
+
+        menuContainer.appendChild(listItem);
+      });
+    });
     </script>
 
 </body>
