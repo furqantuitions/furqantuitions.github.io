@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <style>
+* {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: black;
+            color: white;
+            padding: 10px;
+        }
+        h1 {
+            margin: 20px 0;
+        }
+        .coint {
+            border: 6px solid blue;
+            border-radius: 180px;
+            background-color: bisque;
+            padding: 15px;
+            color: black;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 80%; 
+            max-width: 600px; 
+        }
+        #timer h1 {
+            display: inline-block;
+            font-size: 5vw; 
+            margin: 0 5px;
+        }
+        .buttons button {
+            border-radius: 30px;
+            color: white;
+            background-color: black;
+            padding: 10px 20px;
+            margin: 10px;
+            cursor: pointer;
+            outline: none;
+            font-size: 4vw; 
+        }
+        .buttons button:hover {
+            background-color: #2c3e50;
+            box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.5);
+        }
+        @media (max-width: 600px) {
+            #timer h1 {
+                font-size: 8vw; 
+            }
+            .buttons button {
+                font-size: 5vw; 
+                padding: 15px 30px; 
+            }
+        }
+    </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stopwatch</title>
+</head>
+<body>
+    <h1>BY Fasih Fahim Essa</h1>
+    <div class="coint">
+        <h3>STOP WATCH</h3>
+        <div id="timer">
+            <h1 id="hour">00</h1>:
+            <h1 id="min">00</h1>:
+            <h1 id="sec">00</h1>.
+            <h1 id="msec">00</h1>
+        </div>
+        <div class="buttons">
+            <button id="start">START</button>
+            <button id="stop">STOP</button>
+            <button id="reset">RESET</button>
+        </div>
+    </div>
+    <script>
+        var hour = 0, min = 0, sec = 0, msec = 0;
+        var hourHeading = document.getElementById("hour");
+        var minHeading = document.getElementById("min");
+        var secHeading = document.getElementById("sec");
+        var msecHeading = document.getElementById("msec");
+        var interval;
+
+        function timer(){
+            msec++;
+            if(msec >= 100){
+                msec = 0;
+                sec++;
+                if(sec >= 60){
+                    sec = 0;
+                    min++;
+                    if(min >= 60){
+                        min = 0;
+                        hour++;
+                    }
+                    minHeading.innerHTML = (min < 10 ? "0" + min : min);
+                    hourHeading.innerHTML = (hour < 10 ? "0" + hour : hour);
+                }
+                secHeading.innerHTML = (sec < 10 ? "0" + sec : sec);
+            }
+            msecHeading.innerHTML = (msec < 10 ? "0" + msec : msec);
+        }
+
+        function startTimer(){
+            if (!interval) {
+                interval = setInterval(timer, 10);
+            }
+        }
+
+        function stopTimer(){
+            clearInterval(interval);
+            interval = null;
+        }
+
+        function resetTimer(){
+            stopTimer();
+            hour = 0; min = 0; sec = 0; msec = 0;
+            hourHeading.innerHTML = "00";
+            minHeading.innerHTML = "00";
+            secHeading.innerHTML = "00";
+            msecHeading.innerHTML = "00";
+        }
+
+        document.getElementById("start").addEventListener('click', startTimer);
+        document.getElementById("stop").addEventListener('click', stopTimer);
+        document.getElementById("reset").addEventListener('click', resetTimer);
+    </script>
+</body>
+</html>
