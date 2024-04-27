@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stopwatch</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #9a86a4;
+        }
+        .stopwatch {
+            background-color: #5c5470;
+            color: white;
+            border-radius: 5px;
+            padding: 20px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            text-align: center;
+            position: relative;
+        }
+        .time {
+            font-family: 'Roboto', sans-serif;
+            font-weight: 100; /* Roboto Thin */
+            font-size: 48px;
+            letter-spacing: 4px;
+            padding: 10px 20px;
+            border-bottom: 1px solid #716f88;
+            margin-bottom: 20px;
+        }
+        button {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            margin: 0 10px;
+            font-size: 16px;
+            cursor: pointer;
+            outline: none;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .pause { background-color: #f3c622; }
+        .reset { background-color: #e4572e; }
+        .watermark {
+            position: absolute;
+            bottom: 5px;
+            right: 10px;
+            font-size: 10px;
+            color: white;
+            opacity: 0.5;
+        }
+    </style>
+</head>
+<body>
+    <div class="stopwatch">
+        <div id="stopwatch" class="time">00:00:00</div>
+        <button class="pause" id="startStop">Start</button>
+        <button class="reset" id="reset">Reset</button>
+        <div class="watermark">Fasih's Stopwatch</div>
+    </div>
+
+    <script>
+        let startTime, updatedTime, difference, tInterval, savedTime;
+        let running = 0;
+
+        function startStopTimer() {
+            if (!running) {
+                startTime = new Date().getTime();
+                tInterval = setInterval(getShowTime, 1);
+                running = 1;
+                document.getElementById('startStop').textContent = 'Pause';
+            } else {
+                clearInterval(tInterval);
+                savedTime = difference;
+                running = 0;
+                document.getElementById('startStop').textContent = 'Start';
+            }
+        }
+
+        function resetTimer() {
+            clearInterval(tInterval);
+            savedTime = 0;
+            difference = 0;
+            running = 0;
+            document.getElementById('stopwatch').textContent = '00:00:00';
+            document.getElementById('startStop').textContent = 'Start';
+        }
+
+        function getShowTime() {
+            updatedTime = new Date().getTime();
+            if (savedTime){
+                difference = (updatedTime - startTime) + savedTime;
+            } else {
+                difference = updatedTime - startTime;
+            }
+            let hours = Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            let minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
+            let seconds = Math.floor((difference % (1000 * 60)) / 1000);
+            hours = (hours < 10) ? "0" + hours : hours;
+            minutes = (minutes < 10) ? "0" + minutes : minutes;
+            seconds = (seconds < 10) ? "0" + seconds : seconds;
+            document.getElementById('stopwatch').textContent = hours + ':' + minutes + ':' + seconds;
+        }
+
+        document.getElementById('startStop').addEventListener('click',startStopTimer);
+        document.getElementById('reset').addEventListener('click', resetTimer);
+    </script>
+</body>
+</html>
