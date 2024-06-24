@@ -1,184 +1,445 @@
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Furqan Tuitions</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/remixicon@4.2.0/fonts/remixicon.css"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+      integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="swiper-bundle.min.css" />
+  </head>
+  <body>
+    <!-- -----------------------------------------Header--------------------------------------- -->
+    <div class="header">
+      <button onclick="openNav()" class="navbar-toggler" type="button">
+        <i class="ri-menu-line sidebar-btn"></i>
+      </button>
+      <div class="navbar">
+        <a href="index.html">Home</a>
+        <a href="about.html">About</a>
+        <a href="contact.html">Contact Us</a>
+        <div class="header-button">
+          <a href="tutor.html" class="Btn"></a>
+        </div>
+      </div>
+      <!-- open sidebar -->
+      <aside class="sidepanel" id="mysidepanel">
+        <div class="sidebar flex">
+          <button
+            onclick="closeNav()"
+            type="button"
+            class="closebtn btn_hover1"
+          >
+            <i class="fa-solid fa-xmark"></i>
+          </button>
+        </div>
+        <!-- -----------side menus--------------- -->
+        <ul>
+          <li><a href="#" class="nav-link active">Home</a></li>
+          <li><a href="about.html" class="nav-link">About</a></li>
+        
+          <li>
+            <a href="contact.html" class="nav-link">Contact Us</a>
+          </li>
+        </ul>
+      </aside>
 
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Muhammad Furqan Ali - Home Tutor & Web Developer</title>
-  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4448156529676558"
-     crossorigin="anonymous"></script>
- <style>
-    body {
-      font-family: 'Arial', sans-serif;
-      margin: 0;
-      padding: 0;
-      background-color: #f7f7f7;
-      color: #333;
-    }
+      <div class="nav-right flex">
+        <i onclick="rightOpenNav()" class="fa-solid fa-bars"></i>
+      </div>
+    </div>
 
-    header {
-      background-color: #3498db;
-      color: #ffffff;
-      text-align: center;
-      padding: 2rem;
-    }
+    <!-- -----------------------------------------Home--------------------------------------- -->
+    <div class="hero">
+      <div class="video-container">
+        <div class="video">
+          <video src="video.mp4" autoplay loop muted></video>
+          <div class="overlay"></div>
+        </div>
+        <div class="on-overlay">
+         
+          <div class="hero-content">
+           
+            <p>Furqan Tuitions</p>
+            <h1>Find Yourself a perfect teacher</h1>
+            <a href="tuition.html" class="Btn2"></a>
+          </div>
+        </div>
+      </div>
+    </div>
 
-    header h1 {
-      margin: 0;
-      color: #ffffff;
-    }
-
-    .profile-img {
-      border-radius: 50%;
-      max-width: 150px;
-      margin: 0 auto;
-      display: block;
-    }
-
-    .container {
-      max-width: 800px;
-      margin: 0 auto;
-      padding: 1.5rem;
-      background-color: #ffffff;
-      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-      border-radius: 8px;
-    }
-
-    h1,
-    h2 {
-      color: #3498db;
-    }
-
-    h2 {
-      border-bottom: 2px solid #3498db;
-      padding-bottom: 0.5rem;
-      margin-bottom: 1rem;
-    }
-
-    p {
-      line-height: 1.6;
-    }
-
-    .top-links {
-      text-align: center;
-      margin-top: 1.5rem;
-    }
-
-    .top-links a,
-    .admission-btn {
-      margin: 10px;
-      padding: 10px 15px;
-      color: #ffffff;
-      background-color: #3498db;
-      border-radius: 5px;
-      text-decoration: none;
-      transition: background-color 0.3s ease;
-      display: inline-block;
-    }
-
-    .top-links a:hover,
-    .admission-btn:hover {
-      background-color: #297fb8;
-    }
-
-    .contact-info a,
-    .student-portal a {
-      color: #3498db;
-      text-decoration: none;
-    }
-
-    .contact-info a:hover,
-    .student-portal a:hover {
-      text-decoration: underline;
-    }
-
-    .contact-info,
-    .teaching-method,
-    .student-portal,
-    .top-links {
-      margin-top: 2rem;
-    }
-
-    .project-list {
-      list-style: none;
-      padding: 0;
-    }
-
-    .project-list li {
-      margin-bottom: 0.5rem;
-    }
-  </style>
-</head>
-
-<body>
-
-  <header>
-    <img src="https://imagizer.imageshack.com/img922/8328/PaEOHK.jpg" alt="Your Photo" class="profile-img">
-    <h1>Tuitions By Muhammad Furqan Ali</h1>
-    <p>Home Tutor | Web Developer</p>
-  </header>
-
-  <div class="container top-links">
-    <a href="#aboutMeSection">About Me</a>
-    <a href="studentportal.html" id="studentPortalLink">Student Portal</a>
-    <a href="feedback.html" id="feedbackLink">Feedback</a>
-    <a href="admission.html" class="admission-btn">Admission</a>
-  </div>
-
-  <div class="container">
-    <section id="aboutMeSection">
-      <h2>About Me</h2>
-      <p>I am a dedicated home tutor with a strong O level and A level background.I am currently pursuing my A level qualification. My flair for website and game development combined with my passion for teaching made me an expert teacher especially in the field of computer science. This website is a small piece from all of my projects.</p>
+    <!-- -----------------------------------------About us--------------------------------------- -->
+    <section class="about">
+      <div class="container">
+        <div class="about-content">
+          <h1>About Us</h1>
+          <p>
+            Welcome to Furqan Tuitions! We specialize in providing personalized tuition services tailored to meet the unique needs of each student. Our dedicated tutors are experts in their fields, committed to helping students achieve academic excellence and build confidence in their studies. Whether you need help with math, science, languages, or any other subject, we have the right tutor for you. Join us today and experience the difference quality tutoring can make in your academic journey. We believe in fostering a supportive and encouraging learning environment to ensure every student reaches their full potential. Contact us now to get started!
+          </p>
+          <a href="about.html" class="Btn"></a>
+        </div>
+        <div class="about-img">
+          <img src="images/about1.jpg" alt="" />
+        </div>
+      </div>
+     
     </section>
 
-    <section>
-      <h2>Teaching Experience</h2>
-      <p>With 3 years of teaching experience, I employ an interactive and student-centric approach. I focus on tailoring lessons to individual needs, fostering a positive and engaging learning environment. I have also worked as a teaching associate in my A-level college combined with internship programs.</p>
-      <div class="teaching-method">
-        <h3>Teaching Methodology</h3>
-        <p>My teaching methodology revolves around:</p>
-        <ul>
-          <li>Customized lesson plans to meet each student's unique learning style.</li>
-          <li>Interactive discussions to encourage critical thinking.</li>
-          <li>Regular assessments to track progress and identify areas for improvement.</li>
-        </ul>
+    <!-- -----------------------------------------Services--------------------------------------- -->
+    <div class="services-section">
+      <section class="services">
+        <div class="container">
+          <div class="services-content">
+            <h1>What We Offer</h1>
+            <p>
+              At Furqan Tuitions, we are committed to guiding students through their academic journeys with comprehensive and tailored support for O-levels, A-levels, primary, and secondary education.
+            </p>
+            </div>
+            <div class="service-box-container">
+              <div class="service-box">
+                <i class="ri-book-open-fill"></i>
+                <h1>O-Levels Tutoring</h1>
+                <p>
+                  Our expert tutors provide specialized instruction to help students excel in their O-level examinations.
+                </p>
+           
+              </div>
+            
+              <div class="service-box">
+                <i class="ri-book-3-fill"></i>
+                <h1>A-Levels Tutoring</h1>
+                <p>
+                  We offer comprehensive support for A-level students, ensuring they achieve top grades and prepare for university.
+                </p>
+              
+              </div>
+            
+              <div class="service-box">
+                <i class="ri-pencil-ruler-fill"></i>
+                <h1>Primary Education</h1>
+                <p>
+                  Our primary education program focuses on building a strong foundation in core subjects for young learners.
+                </p>
+              
+              </div>
+            
+              <div class="service-box">
+                <i class="ri-book-2-fill"></i>
+                <h1>Secondary Education</h1>
+                <p>
+                  We provide targeted support for secondary school students, helping them succeed in their academic pursuits.
+                </p>
+             
+              </div>
+            
+              <div class="service-box">
+                <i class="ri-lightbulb-flash-fill"></i>
+                <h1>Exam Preparation</h1>
+                <p>
+                  Our tailored exam preparation services ensure students are confident and ready to excel in their exams.
+                </p>
+           
+              </div>
+            
+              <div class="service-box">
+                <i class="ri-chat-4-fill"></i>
+                <h1>Personalized Tutoring</h1>
+                <p>
+                  We offer personalized tutoring sessions to address each student's unique learning needs and goals.
+                </p>
+               
+              </div>
+            </div>
+            </div>
+            
+      </section>
+    </div>
+
+    <!-- -----------------------------------------FAQs--------------------------------------- -->
+    <div class="faq-section">
+      <section class="faq">
+        <div class="container">
+          <div class="services-content">
+            <div class="faq-animation">
+              <i class="ri-chat-history-fill"></i>
+            </div>
+            <h1>Frequently Asked Questions</h1>
+            <p>
+              Feeling inquisitive? Have a read through some of our FAQs or contact our supporters for help.
+            </p>
+            </div>
+            <!-- accordion -->
+            <div class="value__accordion-item">
+              <header class="value__accordion-header">
+                <div class="value__accordion-icon">
+                  <i class="ri-shield-cross-fill"></i>
+                </div>
+                <h3 class="value__accordion-title">
+                  Can I choose my tutor?
+                </h3>
+                <div class="value__accordion-arrow">
+                  <i class="ri-arrow-down-s-fill"></i>
+                </div>
+              </header>
+              <div class="value__accordion-content">
+                <p class="value__accordion-description">
+                  Yes, we provide profiles of our tutors, allowing you to choose the one that best fits your learning style and needs.
+                </p>
+              </div>
+            </div>
+            
+            <div class="value__accordion-item">
+              <header class="value__accordion-header">
+                <div class="value__accordion-icon">
+                  <i class="ri-book-open-fill"></i>
+                </div>
+                <h3 class="value__accordion-title">
+                  What subjects do you offer tutoring for?
+                </h3>
+                <div class="value__accordion-arrow">
+                  <i class="ri-arrow-down-s-fill"></i>
+                </div>
+              </header>
+              <div class="value__accordion-content">
+                <p class="value__accordion-description">
+                  We offer tutoring for a wide range of subjects including O-Levels, A-Levels, primary, and secondary education subjects.
+                </p>
+              </div>
+            </div>
+            
+            <div class="value__accordion-item">
+              <header class="value__accordion-header">
+                <div class="value__accordion-icon">
+                  <i class="ri-calendar-check-fill"></i>
+                </div>
+                <h3 class="value__accordion-title">
+                  How do I schedule a session?
+                </h3>
+                <div class="value__accordion-arrow">
+                  <i class="ri-arrow-down-s-fill"></i>
+                </div>
+              </header>
+              <div class="value__accordion-content">
+                <p class="value__accordion-description">
+                  Scheduling a session is easy! Simply click on find tutor above, choose your preferred tutor, and select a time that works for you.
+                </p>
+              </div>
+            </div>
+            
+            <div class="value__accordion-item">
+              <header class="value__accordion-header">
+                <div class="value__accordion-icon">
+                  <i class="ri-group-fill"></i>
+                </div>
+                <h3 class="value__accordion-title">
+                  Do you offer group tutoring sessions?
+                </h3>
+                <div class="value__accordion-arrow">
+                  <i class="ri-arrow-down-s-fill"></i>
+                </div>
+              </header>
+              <div class="value__accordion-content">
+                <p class="value__accordion-description">
+                  Yes, we offer both one-on-one and group tutoring sessions. You can choose the format that best suits your learning needs.
+                </p>
+              </div>
+            </div>
+            
+            <div class="value__accordion-item">
+              <header class="value__accordion-header">
+                <div class="value__accordion-icon">
+                  <i class="ri-user-star-fill"></i>
+                </div>
+                <h3 class="value__accordion-title">
+                  What qualifications do your tutors have?
+                </h3>
+                <div class="value__accordion-arrow">
+                  <i class="ri-arrow-down-s-fill"></i>
+                </div>
+              </header>
+              <div class="value__accordion-content">
+                <p class="value__accordion-description">
+                  Our tutors are highly qualified, with many holding advanced degrees in their subject areas. They also have extensive teaching experience.
+                </p>
+              </div>
+            </div>
+            
+            <div class="value__accordion-item">
+              <header class="value__accordion-header">
+                <div class="value__accordion-icon">
+                  <i class="ri-shield-check-fill"></i>
+                </div>
+                <h3 class="value__accordion-title">
+                  Is there a free trial available?
+                </h3>
+                <div class="value__accordion-arrow">
+                  <i class="ri-arrow-down-s-fill"></i>
+                </div>
+              </header>
+              <div class="value__accordion-content">
+                <p class="value__accordion-description">
+                  Yes, we offer a free trial session so you can experience our tutoring services before making a commitment.
+                </p>
+              </div>
+            </div>
+            </div>
+        
+      </section>
+    </div>
+
+    <!----------------------------------------- Testimonial ------------------------------------------->
+
+    <section class="view__section section" id="views-section">
+        <div class="container">
+          <div class="services-content">
+            <h1>What our students are saying</h1>
+            <p>
+              Hear from our Clients who have benefited from our tutoring services.
+            </p>
+          </div>
+          <div class="popular">
+            <div class="swiper views__swiper">
+              <div class="swiper mySwiper">
+                <div class="swiper-wrapper">
+                  <div class="swiper-slide">
+                    <div class="swiper__client-msg">
+                      <p>
+                        My experience with Furqan Tuitions has been exceptional. They
+                        helped me understand complex concepts with ease. Highly
+                        recommended! <br />
+                        ⭐️⭐️⭐️⭐️⭐️
+                      </p>
+                    </div>
+                    <div class="swiper__client-data grid">
+                      <div class="client-data">
+                        <p class="views__data2">Zayan</p>
+                        <p class="views__data1">Happy Student</p>
+                      </div>
+                    </div>
+                  </div>
+      
+                  <div class="swiper-slide">
+                    <div class="swiper__client-msg">
+                      <p>
+                        Furqan Tuitions tailored their teaching to fit my learning
+                        style perfectly. I'm grateful for their dedicated approach
+                        and support. <br />
+                        ⭐️⭐️⭐️⭐️⭐️
+                      </p>
+                    </div>
+                    <div class="swiper__client-data grid grid-two-column">
+                      <div class="client-data">
+                        <p class="views__data2">Zoya</p>
+                        <p class="views__data1">Happy Student</p>
+                      </div>
+                    </div>
+                  </div>
+      
+                  <div class="swiper-slide">
+                    <div class="swiper__client-msg">
+                      <p>
+                        Rawaha Ali benefited greatly from Furqan Tuitions. The
+                        tutors' expertise and personalized attention made a
+                        significant difference in her academic performance. <br />
+                        ⭐️⭐️⭐️⭐️⭐️
+                      </p>
+                    </div>
+                    <div class="swiper__client-data grid grid-two-column">
+                      <div class="client-data">
+                        <p class="views__data2">Rawaha</p>
+                        <p class="views__data1">Parent</p>
+                      </div>
+                    </div>
+                  </div>
+      
+                  <!-- Additional slides can be added as needed -->
+      
+                </div>
+                <div class="swiper-pagination"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+      
+
+    <!----------------------------------------- Banner ------------------------------------------->
+    <section class="banner">
+      <div class="container">
+        <div class="services-content">
+            <h1>Unlock Your Potential with Furqan Tuitions</h1>
+            <p>
+              "Empower your academic journey with confidence and clarity. Let us guide you
+              towards achieving your educational goals with personalized support and expertise."
+            </p>
+            
+          <a href="tutor.html" class="Btn2"></a>
+        </div>
+        <div class="box">
+          <div class="services-content">
+            <h1>NewsLetter</h1>
+            <p>Subscribe For latest Updates</p>
+          </div>
+          <form action="" id="newsletter">
+            <input
+              type="email"
+              id="email"
+              name=""
+              placeholder="Drop your email"
+              class="newsletter"
+            />
+            <button class="send-btn">
+              <div class="svg-wrapper-1">
+                <div class="svg-wrapper">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 24 24"
+                    width="24"
+                    height="24"
+                  >
+                    <path fill="none" d="M0 0h24v24H0z"></path>
+                    <path
+                      fill="currentColor"
+                      d="M1.946 9.315c-.522-.174-.527-.455.01-.634l19.087-6.362c.529-.176.832.12.684.638l-5.454 19.086c-.15.529-.455.547-.679.045L12 14l6-8-8 6-8.054-2.685z"
+                    ></path>
+                  </svg>
+                </div>
+              </div>
+              <span>Send</span>
+            </button>
+          </form>
+        </div>
       </div>
     </section>
 
-    <section>
-      <h2>Web Development</h2>
-      <p>My proficiency in web development allows me to bring innovative and tech-savvy elements into the learning process. I've worked on various projects, including:</p>
-      <ul class="project-list">
-        <li>Online educational platforms for enhanced learning experiences.</li>
-        <li>Personalized websites to track student progress and provide resources.</li>
-      </ul>
-    </section>
+    <!----------------------------------------- Footer ------------------------------------------->
+   
 
-    <section class="student-portal">
-      <h2>Student Portal</h2>
-      <p>Access the student portal for additional resources and information.</p>
-      <a href="studentportal.html" id="studentPortalLink">Visit Student Portal</a>
-    </section>
+    <div class="copywrite">
+      <span>Furqan Tuitions</span> | all rights reserved
+    </div>
 
-    <section class="contact-info">
-      <h2>Contact Information</h2>
-      <p>Email: <a href="mailto:teapack534@gmail.com">teapack534@gmail.com</a></p>
-      <p>Phone: <a href="tel:+923152831124">+923152831124</a></p>
-    </section>
-  </div>
+    <!----------------------------------------- backtotop ------------------------------------------->
 
-  <script>
-    document.getElementById('studentPortalLink').addEventListener('click', function(event) {
-      event.preventDefault();
-      window.location.href = "studentportal.html";
-    });
-
-    document.querySelector('a[href="#aboutMeSection"]').addEventListener('click', function(event) {
-      event.preventDefault();
-      document.querySelector('#aboutMeSection').scrollIntoView({ behavior: 'smooth' });
-    });
-  </script>
-
-</body>
-
+    <button onclick="scrollToTop()" class="btn-hover2" id="backToTop">
+      <i class="fa-solid fa-angle-up"></i>
+    </button>
+    <script src="https://www.gstatic.com/firebasejs/8.7.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.7.1/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.7.1/firebase-firestore.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.7.1/firebase-database.js"></script>
+    <script src="firebase.js"></script>
+    <script src="swiper-bundle.min.js"></script>
+    <script src="script.js"></script>
+  </body>
 </html>
