@@ -1,40 +1,186 @@
-<!DOCTYPE html><html lang="en">
+<!DOCTYPE html>
+<html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Furqan Tuitions</title>
-  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
-  <style>
-    body { font-family: 'Roboto', sans-serif; background: #f0f4f8; margin: 0; padding: 0; }
-    h1 { text-align: center; color: #2c3e50; margin-top: 20px; }
-    #login, #studentPanel, #admin { max-width: 800px; margin: 20px auto; padding: 20px; background: white; border-radius: 10px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
-    input, select, textarea, button { margin: 5px 0; padding: 10px; font-size: 16px; border-radius: 5px; border: 1px solid #ccc; width: 100%; }
-    button { cursor: pointer; background-color: #3498db; color: white; border: none; transition: 0.3s; }
-    button:hover { background-color: #2980b9; }
-    #calendar { display: flex; flex-wrap: wrap; margin-top: 10px; }
-    #calendar button { flex: 1 0 30%; margin: 5px; padding: 15px; border-radius: 10px; border: none; font-weight: bold; transition: 0.3s; }
-    .taken { background-color: #27ae60; color: white; }
-    .pending { background-color: #e74c3c; color: white; }
-    .today { border: 3px solid #f1c40f; }
-    #topics, #classTopics { margin-top: 15px; padding: 10px; background: #ecf0f1; border-radius: 8px; }
-  </style>
-  <script type="module">
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-app.js";
-    import { getDatabase, ref, onValue, set, update } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-database.js";const firebaseConfig = {
-  apiKey: "AIzaSyD5iFJYPEU3B0eohoFl_pGD75ZzX-onQsE",
-  authDomain: "furqantuitions.firebaseapp.com",
-  databaseURL: "https://furqantuitions-default-rtdb.firebaseio.com",
-  projectId: "furqantuitions",
-  storageBucket: "furqantuitions.appspot.com",
-  messagingSenderId: "816451833675",
-  appId: "1:816451833675:web:eda7c6a26f8e202effa2ce"
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Furqan Tuitions</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+
+<style>
+body{font-family:Roboto;background:#eef3f7;margin:0}
+h1{text-align:center;margin:20px;color:#2c3e50}
+.panel{max-width:900px;margin:20px auto;background:#fff;padding:20px;border-radius:12px;box-shadow:0 6px 20px rgba(0,0,0,.1)}
+input,select,textarea,button{width:100%;padding:10px;margin:6px 0;font-size:16px;border-radius:6px;border:1px solid #ccc}
+button{background:#3498db;color:#fff;border:none;cursor:pointer}
+button:hover{background:#2980b9}
+#calendar{display:flex;flex-wrap:wrap;margin-top:15px}
+#calendar button{flex:1 0 30%;margin:6px;padding:14px;border-radius:10px;font-weight:bold}
+.taken{background:#27ae60;color:#fff}
+.pending{background:#e74c3c;color:#fff}
+.today{border:3px solid #f1c40f}
+#topics{background:#ecf0f1;padding:12px;border-radius:8px;margin-top:15px}
+.hidden{display:none}
+</style>
+
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-app.js";
+import { getDatabase, ref, onValue, set, update } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-database.js";
+
+const firebaseConfig={
+ apiKey:"AIzaSyD5iFJYPEU3B0eohoFl_pGD75ZzX-onQsE",
+ authDomain:"furqantuitions.firebaseapp.com",
+ databaseURL:"https://furqantuitions-default-rtdb.firebaseio.com",
+ projectId:"furqantuitions",
+ storageBucket:"furqantuitions.appspot.com",
+ messagingSenderId:"816451833675",
+ appId:"1:816451833675:web:eda7c6a26f8e202effa2ce"
 };
 
-const app = initializeApp(firebaseConfig);
-const db = getDatabase(app);
+const app=initializeApp(firebaseConfig);
+const db=getDatabase(app);
 
-const months = ["January","February","March","April","May","June","July","August","September","October","November","December"];
+const months=["January","February","March","April","May","June","July","August","September","October","November","December"];
 
+let currentStudent="",currentData={};
+
+window.onload=()=>{
+ const ms=document.getElementById("monthSelect");
+ months.forEach(m=>{
+  const o=document.createElement("option");
+  o.value=o.innerText=m;
+  ms.appendChild(o);
+ });
+ ms.value=months[new Date().getMonth()];
+ document.getElementById("admin").classList.add("hidden");
+};
+
+window.loadStudent=()=>{
+ const name=document.getElementById("studentName").value.trim();
+ if(!name)return;
+ currentStudent=name;
+
+ document.getElementById("login").classList.add("hidden");
+ document.getElementById("studentPanel").classList.remove("hidden");
+ document.getElementById("studentTitle").innerText=name;
+
+ if(name.toLowerCase()==="biryani")
+  document.getElementById("admin").classList.remove("hidden");
+ else
+  document.getElementById("admin").classList.add("hidden");
+
+ onValue(ref(db,"students/"+name),snap=>{
+  currentData=snap.val()||{};
+  renderCalendar();
+  renderTopics();
+ });
+};
+
+window.renderCalendar=()=>{
+ const month=document.getElementById("monthSelect").value;
+ const cal=document.getElementById("calendar");
+ cal.innerHTML="";
+ const m=currentData[month]||{};
+ const today=new Date().toISOString().split("T")[0];
+
+ Object.keys(m).sort().forEach(d=>{
+  const b=document.createElement("button");
+  b.innerText=`${d} ${m[d].time}`;
+  b.className=(m[d].taken?"taken":"pending")+(d===today?" today":"");
+  b.onclick=()=>openClass(month,d);
+  cal.appendChild(b);
+ });
+
+ const total=Object.keys(m).length;
+ const taken=Object.values(m).filter(c=>c.taken).length;
+ document.getElementById("summary").innerText=
+  `Total: ${total} | Taken: ${taken} | Left: ${total-taken}`;
+};
+
+window.renderTopics=()=>{
+ let maths=[],physics=[];
+ for(const m in currentData)
+  for(const d in currentData[m]){
+   if(currentData[m][d].maths)maths.push(currentData[m][d].maths);
+   if(currentData[m][d].physics)physics.push(currentData[m][d].physics);
+  }
+ document.getElementById("topics").innerHTML=
+ `<b>Overall Topics</b><br>
+ Maths: ${maths.join(", ")||"-"}<br>
+ Physics: ${physics.join(", ")||"-"}`;
+};
+
+function openClass(month,date){
+ const c=currentData[month][date];
+ const m=prompt("Maths topic:",c.maths||"");
+ const p=prompt("Physics topic:",c.physics||"");
+ update(ref(db,`students/${currentStudent}/${month}/${date}`),
+ {taken:true,maths:m,physics:p});
+}
+
+window.addStudentSchedule=()=>{
+ const name=newStudent.value.trim();
+ const month=newMonth.value;
+ const days=newDays.value.toLowerCase();
+ const time=newTime.value.trim();
+ if(!name||!days||!time)return;
+
+ const map={sunday:0,monday:1,tuesday:2,wednesday:3,thursday:4,friday:5,saturday:6};
+ const sel=days.split(",").map(d=>map[d.trim()]).filter(d=>d!=null);
+
+ const y=new Date().getFullYear();
+ const mi=months.indexOf(month);
+ const out={};
+
+ let d=new Date(y,mi,1);
+ while(d.getMonth()===mi){
+  if(sel.includes(d.getDay())){
+   const k=d.toISOString().split("T")[0];
+   out[k]={taken:false,time,maths:"",physics:""};
+  }
+  d.setDate(d.getDate()+1);
+ }
+
+ set(ref(db,`students/${name}/${month}`),out);
+ alert("Student schedule created");
+};
+</script>
+</head>
+
+<body>
+
+<h1>Furqan Tuitions</h1>
+
+<div id="login" class="panel">
+<h2>Student Login</h2>
+<input id="studentName" placeholder="Enter Student Name">
+<button onclick="loadStudent()">View Schedule</button>
+</div>
+
+<div id="studentPanel" class="panel hidden">
+<h2 id="studentTitle"></h2>
+<select id="monthSelect" onchange="renderCalendar()"></select>
+<p id="summary"></p>
+<div id="calendar"></div>
+<div id="topics"></div>
+</div>
+
+<div id="admin" class="panel hidden">
+<h2>Admin Panel</h2>
+<input id="newStudent" placeholder="Student Name">
+<select id="newMonth">
+<option>January</option><option>February</option><option>March</option>
+<option>April</option><option>May</option><option>June</option>
+<option>July</option><option>August</option><option>September</option>
+<option>October</option><option>November</option><option>December</option>
+</select>
+<input id="newDays" placeholder="Days (Monday, Wednesday, Saturday, Sunday)">
+<input id="newTime" placeholder="Time (9:00 PM)">
+<button onclick="addStudentSchedule()">Add Student</button>
+</div>
+
+</body>
+</html>
 let currentStudent = '';
 let currentData = {};
 
