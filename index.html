@@ -1,10 +1,147 @@
-<!DOCTYPE html><html lang="en">
+<!DOCTYPE html>
+<html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Furqan Tuitions | Rayyan</title>  <!-- Fonts & Icons -->  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">  <!-- Firebase -->  <script type="module">
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
-    import { getDatabase, ref, onValue, set, update } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-database.js";
+  <title>Furqan Tuitions | Rayyan</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+      color: #fff;
+    }
+
+    header {
+      padding: 16px;
+      font-size: 22px;
+      font-weight: 600;
+      text-align: center;
+    }
+
+    .container {
+      padding: 16px;
+      max-width: 480px;
+      margin: auto;
+    }
+
+    select {
+      width: 100%;
+      padding: 12px;
+      border-radius: 10px;
+      border: none;
+      margin-bottom: 16px;
+      font-size: 16px;
+    }
+
+    .calendar {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      gap: 8px;
+    }
+
+    .day {
+      padding: 14px 0;
+      border-radius: 12px;
+      background: rgba(255,255,255,0.12);
+      text-align: center;
+      font-size: 14px;
+      cursor: pointer;
+    }
+
+    .taken { background: #1db954; }
+    .missed { background: #d9534f; }
+
+    .overall {
+      margin-top: 28px;
+      display: grid;
+      gap: 16px;
+    }
+
+    .card {
+      background: rgba(255,255,255,0.12);
+      border-radius: 14px;
+      padding: 16px;
+    }
+
+    ul { padding-left: 18px; }
+
+    #classModal {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.75);
+      align-items: center;
+      justify-content: center;
+    }
+
+    .modal {
+      background: #111;
+      width: 90%;
+      max-width: 320px;
+      padding: 20px;
+      border-radius: 16px;
+    }
+
+    input, button {
+      width: 100%;
+      padding: 12px;
+      margin-top: 12px;
+      border-radius: 10px;
+      border: none;
+      font-size: 15px;
+    }
+
+    button {
+      background: #1db954;
+      color: #fff;
+      font-weight: 600;
+    }
+  </style>
+</head>
+
+<body>
+
+<header>Furqan Tuitions – Rayyan</header>
+
+<div class="container">
+  <select id="monthSelect"></select>
+  <div class="calendar" id="calendar"></div>
+
+  <div class="overall">
+    <div class="card">
+      <h3>Maths – Topics</h3>
+      <ul id="mathsTopics"></ul>
+    </div>
+    <div class="card">
+      <h3>Physics – Topics</h3>
+      <ul id="physicsTopics"></ul>
+    </div>
+  </div>
+</div>
+
+<div id="classModal">
+  <div class="modal">
+    <h3>Mark Class</h3>
+    <select id="subjectSelect">
+      <option value="maths">Maths</option>
+      <option value="physics">Physics</option>
+    </select>
+    <input id="topicInput" placeholder="Topic studied">
+    <button id="saveBtn">Save</button>
+  </div>
+</div>
+
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+  import { getDatabase, ref, onValue, update } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-database.js";
+
+  document.addEventListener("DOMContentLoaded", () => {
 
     const firebaseConfig = {
       apiKey: "AIzaSyD5iFJYPEU3B0eohoFl_pGD75ZzX-onQsE",
@@ -19,352 +156,91 @@
     const app = initializeApp(firebaseConfig);
     const db = getDatabase(app);
 
-    const urlParams = new URLSearchParams(window.location.search);
-    const isTeacher = urlParams.get('teacher') === 'furqan@admin';
+    const isTeacher = new URLSearchParams(location.search).get("teacher") === "furqan@admin";
 
-    const monthSelect = document.getElementById('monthSelect');
-    const calendar = document.getElementById('calendar');
-    const classModal = document.getElementById('classModal');
-    const topicInput = document.getElementById('topicInput');
-    const subjectSelect = document.getElementById('subjectSelect');
-    const saveBtn = document.getElementById('saveBtn');
+    const calendar = document.getElementById("calendar");
+    const monthSelect = document.getElementById("monthSelect");
+    const modal = document.getElementById("classModal");
+    const saveBtn = document.getElementById("saveBtn");
+    const topicInput = document.getElementById("topicInput");
+    const subjectSelect = document.getElementById("subjectSelect");
 
-    let selectedDate = null;
+    let selectedDate = "";
 
-    function getMonthKey(date) {
-      return `${date.getFullYear()}-${date.getMonth()+1}`;
-    }
+    function renderCalendar(y, m) {
+      calendar.innerHTML = "";
+      const days = new Date(y, m + 1, 0).getDate();
 
-    function renderCalendar(year, month) {
-      calendar.innerHTML = '';
-      const daysInMonth = new Date(year, month + 1, 0).getDate();
+      for (let d = 1; d <= days; d++) {
+        const box = document.createElement("div");
+        box.className = "day";
+        box.textContent = d;
 
-      for (let d = 1; d <= daysInMonth; d++) {
-        const dayDiv = document.createElement('div');
-        dayDiv.className = 'day';
-        dayDiv.innerText = d;
+        const key = `${y}-${m+1}-${d}`;
+        const dayRef = ref(db, `rayyan/classes/${key}`);
 
-        const dateKey = `${year}-${month+1}-${d}`;
-        const dayRef = ref(db, `rayyan/classes/${dateKey}`);
-
-        onValue(dayRef, snap => {
-          if (snap.exists()) {
-            dayDiv.classList.add(snap.val().status === 'taken' ? 'taken' : 'missed');
-          }
+        onValue(dayRef, s => {
+          if (s.exists()) box.classList.add(s.val().status);
         });
 
-        dayDiv.onclick = () => {
-          selectedDate = dateKey;
-          if (isTeacher) classModal.style.display = 'flex';
-          else alert('Only teacher can edit classes');
+        box.onclick = () => {
+          selectedDate = key;
+          if (isTeacher) modal.style.display = "flex";
         };
 
-        calendar.appendChild(dayDiv);
+        calendar.appendChild(box);
       }
     }
 
-    function populateMonths() {
+    function loadMonths() {
       const now = new Date();
       for (let i = 0; i < 6; i++) {
         const d = new Date(now.getFullYear(), now.getMonth() - i, 1);
-        const opt = document.createElement('option');
+        const opt = document.createElement("option");
         opt.value = `${d.getFullYear()}-${d.getMonth()}`;
-        opt.text = d.toLocaleString('default', { month: 'long', year: 'numeric' });
+        opt.textContent = d.toLocaleString("default", { month: "long", year: "numeric" });
         monthSelect.appendChild(opt);
       }
     }
 
     monthSelect.onchange = () => {
-      const [y, m] = monthSelect.value.split('-');
-      renderCalendar(parseInt(y), parseInt(m));
+      const [y, m] = monthSelect.value.split("-");
+      renderCalendar(+y, +m);
     };
 
     saveBtn.onclick = () => {
-      const topic = topicInput.value;
-      const subject = subjectSelect.value;
-
       update(ref(db, `rayyan/classes/${selectedDate}`), {
-        topic,
-        subject,
-        status: 'taken'
+        topic: topicInput.value,
+        subject: subjectSelect.value,
+        status: "taken"
       });
 
-      update(ref(db, `rayyan/overall/${subject}`), {
-        [selectedDate]: topic
+      update(ref(db, `rayyan/overall/${subjectSelect.value}`), {
+        [selectedDate]: topicInput.value
       });
 
-      classModal.style.display = 'none';
+      modal.style.display = "none";
+      topicInput.value = "";
     };
 
-    populateMonths();
+    loadMonths();
     const now = new Date();
     renderCalendar(now.getFullYear(), now.getMonth());
 
-    const overallRef = ref(db, 'rayyan/overall');
-    onValue(overallRef, snap => {
-      const maths = document.getElementById('mathsTopics');
-      const physics = document.getElementById('physicsTopics');
-      maths.innerHTML = physics.innerHTML = '';
+    onValue(ref(db, "rayyan/overall"), s => {
+      document.getElementById("mathsTopics").innerHTML = "";
+      document.getElementById("physicsTopics").innerHTML = "";
 
-      if (snap.exists()) {
-        Object.entries(snap.val().maths || {}).forEach(([_, t]) => maths.innerHTML += `<li>${t}</li>`);
-        Object.entries(snap.val().physics || {}).forEach(([_, t]) => physics.innerHTML += `<li>${t}</li>`);
-      }
+      Object.values(s.val()?.maths || {}).forEach(t =>
+        mathsTopics.innerHTML += `<li>${t}</li>`
+      );
+      Object.values(s.val()?.physics || {}).forEach(t =>
+        physicsTopics.innerHTML += `<li>${t}</li>`
+      );
     });
-  </script>  <style>
-    body {
-      margin: 0;
-      font-family: 'Poppins', sans-serif;
-      background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
-      color: #fff;
-    }
-    header {
-      padding: 20px;
-      font-size: 28px;
-      font-weight: 600;
-      text-align: center;
-    }
-    .container {
-      max-width: 1100px;
-      margin: auto;
-      padding: 20px;
-    }
-    select {
-      padding: 10px;
-      border-radius: 8px;
-      border: none;
-      margin-bottom: 20px;
-      font-size: 16px;
-    }
-    .calendar {
-      display: grid;
-      grid-template-columns: repeat(7, 1fr);
-      gap: 10px;
-    }
-    .day {
-      padding: 20px;
-      border-radius: 14px;
-      background: rgba(255,255,255,0.1);
-      text-align: center;
-      cursor: pointer;
-      transition: 0.3s;
-    }
-    .day:hover { transform: scale(1.05); }
-    .taken { background: #1db954; }
-    .missed { background: #d9534f; }
 
-    .overall {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 20px;
-      margin-top: 40px;
-    }
-    .card {
-      background: rgba(255,255,255,0.1);
-      border-radius: 16px;
-      padding: 20px;
-    }
-
-    #classModal {
-      display: none;
-      position: fixed;
-      inset: 0;
-      background: rgba(0,0,0,0.7);
-      justify-content: center;
-      align-items: center;
-    }
-    .modal {
-      background: #111;
-      padding: 30px;
-      border-radius: 16px;
-      width: 300px;
-    }
-    input, button {
-      width: 100%;
-      padding: 10px;
-      margin-top: 10px;
-      border-radius: 8px;
-      border: none;
-    }
-    button {
-      background: #1db954;
-      color: #fff;
-      font-weight: 600;
-      cursor: pointer;
-    }
-  </style></head>
-<body>
-  <header>Furqan Tuitions – Rayyan</header>  <div class="container">
-    <select id="monthSelect"></select>
-    <div class="calendar" id="calendar"></div><div class="overall">
-  <div class="card">
-    <h3>Maths – Topics Covered</h3>
-    <ul id="mathsTopics"></ul>
-  </div>
-  <div class="card">
-    <h3>Physics – Topics Covered</h3>
-    <ul id="physicsTopics"></ul>
-  </div>
-</div>
-
-  </div>  <div id="classModal">
-    <div class="modal">
-      <h3>Mark Class</h3>
-      <select id="subjectSelect">
-        <option value="maths">Maths</option>
-        <option value="physics">Physics</option>
-      </select>
-      <input id="topicInput" placeholder="Topic studied" />
-      <button id="saveBtn">Save</button>
-    </div>
-  </div>
-</body>
-</html> appId:"1:816451833675:web:eda7c6a26f8e202effa2ce"
-};
-
-const app=initializeApp(firebaseConfig);
-const db=getDatabase(app);
-
-const months=["January","February","March","April","May","June","July","August","September","October","November","December"];
-
-let currentStudent="",currentData={};
-
-window.onload=()=>{
- const ms=document.getElementById("monthSelect");
- months.forEach(m=>{
-  const o=document.createElement("option");
-  o.value=o.innerText=m;
-  ms.appendChild(o);
- });
- ms.value=months[new Date().getMonth()];
- document.getElementById("admin").classList.add("hidden");
-};
-
-window.loadStudent=()=>{
- const name=document.getElementById("studentName").value.trim();
- if(!name)return;
- currentStudent=name;
-
- document.getElementById("login").classList.add("hidden");
- document.getElementById("studentPanel").classList.remove("hidden");
- document.getElementById("studentTitle").innerText=name;
-
- if(name.toLowerCase()==="biryani")
-  document.getElementById("admin").classList.remove("hidden");
- else
-  document.getElementById("admin").classList.add("hidden");
-
- onValue(ref(db,"students/"+name),snap=>{
-  currentData=snap.val()||{};
-  renderCalendar();
-  renderTopics();
- });
-};
-
-window.renderCalendar=()=>{
- const month=document.getElementById("monthSelect").value;
- const cal=document.getElementById("calendar");
- cal.innerHTML="";
- const m=currentData[month]||{};
- const today=new Date().toISOString().split("T")[0];
-
- Object.keys(m).sort().forEach(d=>{
-  const b=document.createElement("button");
-  b.innerText=`${d} ${m[d].time}`;
-  b.className=(m[d].taken?"taken":"pending")+(d===today?" today":"");
-  b.onclick=()=>openClass(month,d);
-  cal.appendChild(b);
- });
-
- const total=Object.keys(m).length;
- const taken=Object.values(m).filter(c=>c.taken).length;
- document.getElementById("summary").innerText=
-  `Total: ${total} | Taken: ${taken} | Left: ${total-taken}`;
-};
-
-window.renderTopics=()=>{
- let maths=[],physics=[];
- for(const m in currentData)
-  for(const d in currentData[m]){
-   if(currentData[m][d].maths)maths.push(currentData[m][d].maths);
-   if(currentData[m][d].physics)physics.push(currentData[m][d].physics);
-  }
- document.getElementById("topics").innerHTML=
- `<b>Overall Topics</b><br>
- Maths: ${maths.join(", ")||"-"}<br>
- Physics: ${physics.join(", ")||"-"}`;
-};
-
-function openClass(month,date){
- const c=currentData[month][date];
- const m=prompt("Maths topic:",c.maths||"");
- const p=prompt("Physics topic:",c.physics||"");
- update(ref(db,`students/${currentStudent}/${month}/${date}`),
- {taken:true,maths:m,physics:p});
-}
-
-window.addStudentSchedule=()=>{
- const name=newStudent.value.trim();
- const month=newMonth.value;
- const days=newDays.value.toLowerCase();
- const time=newTime.value.trim();
- if(!name||!days||!time)return;
-
- const map={sunday:0,monday:1,tuesday:2,wednesday:3,thursday:4,friday:5,saturday:6};
- const sel=days.split(",").map(d=>map[d.trim()]).filter(d=>d!=null);
-
- const y=new Date().getFullYear();
- const mi=months.indexOf(month);
- const out={};
-
- let d=new Date(y,mi,1);
- while(d.getMonth()===mi){
-  if(sel.includes(d.getDay())){
-   const k=d.toISOString().split("T")[0];
-   out[k]={taken:false,time,maths:"",physics:""};
-  }
-  d.setDate(d.getDate()+1);
- }
-
- set(ref(db,`students/${name}/${month}`),out);
- alert("Student schedule created");
-};
+  });
 </script>
-</head>
-
-<body>
-
-<h1>Furqan Tuitions</h1>
-
-<div id="login" class="panel">
-<h2>Student Login</h2>
-<input id="studentName" placeholder="Enter Student Name">
-<button onclick="loadStudent()">View Schedule</button>
-</div>
-
-<div id="studentPanel" class="panel hidden">
-<h2 id="studentTitle"></h2>
-<select id="monthSelect" onchange="renderCalendar()"></select>
-<p id="summary"></p>
-<div id="calendar"></div>
-<div id="topics"></div>
-</div>
-
-<div id="admin" class="panel hidden">
-<h2>Admin Panel</h2>
-<input id="newStudent" placeholder="Student Name">
-<select id="newMonth">
-<option>January</option><option>February</option><option>March</option>
-<option>April</option><option>May</option><option>June</option>
-<option>July</option><option>August</option><option>September</option>
-<option>October</option><option>November</option><option>December</option>
-</select>
-<input id="newDays" placeholder="Days (Monday, Wednesday, Saturday, Sunday)">
-<input id="newTime" placeholder="Time (9:00 PM)">
-<button onclick="addStudentSchedule()">Add Student</button>
-</div>
 
 </body>
 </html>
-    <h2>Student Login</h2>
- 
