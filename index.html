@@ -126,6 +126,15 @@
     <div class="stat">Total Classes<span id="totalClasses">0</span></div>
     <div class="stat">Taken<span id="takenClasses">0</span></div>
     <div class="stat">Remaining<span id="remainingClasses">0</span></div>
+    <div class="stat">Compensatory Left<span id="compensatory">10</span>
+      <div id="compControls" style="margin-top:6px;display:none">
+        <button id="compDec" style="margin-right:6px">−1</button>
+        <button id="compInc">+1</button>
+      </div>
+    </div>
+  </div>
+    <div class="stat">Taken<span id="takenClasses">0</span></div>
+    <div class="stat">Remaining<span id="remainingClasses">0</span></div>
     <div class="stat">Compensatory Left<span id="compensatory">10</span></div>
   </div>  <div class="calendar" id="calendar"></div>  <div class="overall">
     <div class="card">
@@ -167,6 +176,7 @@
     const db = getDatabase(app);
 
     const isTeacher = new URLSearchParams(location.search).get("teacher") === "furqan@admin";
+    if (isTeacher) compControls.style.display = "block";
 
     const calendar = document.getElementById("calendar");
     const monthSelect = document.getElementById("monthSelect");
@@ -179,6 +189,9 @@
     const takenEl = document.getElementById("takenClasses");
     const remainingEl = document.getElementById("remainingClasses");
     const compEl = document.getElementById("compensatory");
+    const compControls = document.getElementById("compControls");
+    const compInc = document.getElementById("compInc");
+    const compDec = document.getElementById("compDec");
 
     let selectedDate = "";
     let currentMonthKey = "";
@@ -231,11 +244,7 @@
       const total = expectedClassesInMonth(y, m);
       totalEl.textContent = total;
       takenEl.textContent = taken;
-      remainingEl.textContent = Math.max(total - taken, 0);
-
-      const diff = taken - total;
-      const baseComp = 10;
-      compEl.textContent = Math.max(baseComp - diff, 0);
+      remainingEl.textContent = total - taken; // can be negative
     }
 
     function loadMonths() {
@@ -272,6 +281,22 @@
     loadMonths();
     const now = new Date();
     renderCalendar(now.getFullYear(), now.getMonth());
+
+    // --- COMPENSATORY (MANUAL, GLOBAL) ---
+    const compRef = ref(db, "rayyan/compensatory");
+    onValue(compRef, s => {
+      if (!s.exists()) {
+        update(ref(db, "rayyan"), { compensatory: 10 });
+        compEl.textContent = 10;
+      } else {
+        compEl.textContent = s.val();
+      }
+    });
+
+    if (isTeacher) {
+      compInc.onclick = () => update(compRef, { '.value': (Number(compEl.textContent) || 0) + 1 });
+      compDec.onclick = () => update(compRef, { '.value': (Number(compEl.textContent) || 0) - 1 });
+    }
 
     onValue(ref(db, "rayyan/overall"), s => {
       mathsTopics.innerHTML = physicsTopics.innerHTML = "";
