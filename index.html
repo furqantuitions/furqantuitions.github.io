@@ -1,13 +1,8 @@
-<!DOCTYPE html>
-<html lang="en">
+<!DOCTYPE html><html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Furqan Tuitions | Rayyan</title>
-
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-
-  <style>
+  <title>Furqan Tuitions | Rayyan</title>  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">  <style>
     * { box-sizing: border-box; }
 
     body {
@@ -26,7 +21,7 @@
 
     .container {
       padding: 16px;
-      max-width: 480px;
+      max-width: 520px;
       margin: auto;
     }
 
@@ -35,8 +30,30 @@
       padding: 12px;
       border-radius: 10px;
       border: none;
-      margin-bottom: 16px;
+      margin-bottom: 14px;
       font-size: 16px;
+    }
+
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
+      margin-bottom: 18px;
+    }
+
+    .stat {
+      background: rgba(255,255,255,0.15);
+      border-radius: 14px;
+      padding: 12px;
+      text-align: center;
+      font-size: 14px;
+    }
+
+    .stat span {
+      display: block;
+      font-size: 20px;
+      font-weight: 600;
+      margin-top: 4px;
     }
 
     .calendar {
@@ -58,7 +75,7 @@
     .missed { background: #d9534f; }
 
     .overall {
-      margin-top: 28px;
+      margin-top: 26px;
       display: grid;
       gap: 16px;
     }
@@ -102,18 +119,15 @@
       color: #fff;
       font-weight: 600;
     }
-  </style>
-</head>
+  </style></head>
+<body><header>Furqan Tuitions – Rayyan</header><div class="container"><select id="monthSelect"></select>
 
-<body>
-
-<header>Furqan Tuitions – Rayyan</header>
-
-<div class="container">
-  <select id="monthSelect"></select>
-  <div class="calendar" id="calendar"></div>
-
-  <div class="overall">
+  <div class="stats">
+    <div class="stat">Total Classes<span id="totalClasses">0</span></div>
+    <div class="stat">Taken<span id="takenClasses">0</span></div>
+    <div class="stat">Remaining<span id="remainingClasses">0</span></div>
+    <div class="stat">Compensatory Left<span id="compensatory">10</span></div>
+  </div>  <div class="calendar" id="calendar"></div>  <div class="overall">
     <div class="card">
       <h3>Maths – Topics</h3>
       <ul id="mathsTopics"></ul>
@@ -123,9 +137,7 @@
       <ul id="physicsTopics"></ul>
     </div>
   </div>
-</div>
-
-<div id="classModal">
+</div><div id="classModal">
   <div class="modal">
     <h3>Mark Class</h3>
     <select id="subjectSelect">
@@ -135,9 +147,7 @@
     <input id="topicInput" placeholder="Topic studied">
     <button id="saveBtn">Save</button>
   </div>
-</div>
-
-<script type="module">
+</div><script type="module">
   import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
   import { getDatabase, ref, onValue, update } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-database.js";
 
@@ -165,11 +175,30 @@
     const topicInput = document.getElementById("topicInput");
     const subjectSelect = document.getElementById("subjectSelect");
 
+    const totalEl = document.getElementById("totalClasses");
+    const takenEl = document.getElementById("takenClasses");
+    const remainingEl = document.getElementById("remainingClasses");
+    const compEl = document.getElementById("compensatory");
+
     let selectedDate = "";
+    let currentMonthKey = "";
+
+    function expectedClassesInMonth(y, m) {
+      let count = 0;
+      const days = new Date(y, m + 1, 0).getDate();
+      for (let d = 1; d <= days; d++) {
+        const day = new Date(y, m, d).getDay();
+        if ([1,3,6,0].includes(day)) count++; // Mon Wed Sat Sun
+      }
+      return count;
+    }
 
     function renderCalendar(y, m) {
       calendar.innerHTML = "";
+      currentMonthKey = `${y}-${m+1}`;
+
       const days = new Date(y, m + 1, 0).getDate();
+      let takenCount = 0;
 
       for (let d = 1; d <= days; d++) {
         const box = document.createElement("div");
@@ -180,7 +209,11 @@
         const dayRef = ref(db, `rayyan/classes/${key}`);
 
         onValue(dayRef, s => {
-          if (s.exists()) box.classList.add(s.val().status);
+          if (s.exists()) {
+            box.classList.add(s.val().status);
+            if (s.val().status === "taken") takenCount++;
+            updateStats(y, m, takenCount);
+          }
         });
 
         box.onclick = () => {
@@ -190,6 +223,19 @@
 
         calendar.appendChild(box);
       }
+
+      updateStats(y, m, takenCount);
+    }
+
+    function updateStats(y, m, taken) {
+      const total = expectedClassesInMonth(y, m);
+      totalEl.textContent = total;
+      takenEl.textContent = taken;
+      remainingEl.textContent = Math.max(total - taken, 0);
+
+      const diff = taken - total;
+      const baseComp = 10;
+      compEl.textContent = Math.max(baseComp - diff, 0);
     }
 
     function loadMonths() {
@@ -228,19 +274,11 @@
     renderCalendar(now.getFullYear(), now.getMonth());
 
     onValue(ref(db, "rayyan/overall"), s => {
-      document.getElementById("mathsTopics").innerHTML = "";
-      document.getElementById("physicsTopics").innerHTML = "";
-
-      Object.values(s.val()?.maths || {}).forEach(t =>
-        mathsTopics.innerHTML += `<li>${t}</li>`
-      );
-      Object.values(s.val()?.physics || {}).forEach(t =>
-        physicsTopics.innerHTML += `<li>${t}</li>`
-      );
+      mathsTopics.innerHTML = physicsTopics.innerHTML = "";
+      Object.values(s.val()?.maths || {}).forEach(t => mathsTopics.innerHTML += `<li>${t}</li>`);
+      Object.values(s.val()?.physics || {}).forEach(t => physicsTopics.innerHTML += `<li>${t}</li>`);
     });
 
   });
-</script>
-
-</body>
+</script></body>
 </html>
