@@ -1,40 +1,225 @@
-<!DOCTYPE html>
-<html lang="en">
+<!DOCTYPE html><html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Furqan Tuitions</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Furqan Tuitions | Rayyan</title>  <!-- Fonts & Icons -->  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">  <!-- Firebase -->  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+    import { getDatabase, ref, onValue, set, update } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-database.js";
 
-<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    const firebaseConfig = {
+      apiKey: "AIzaSyD5iFJYPEU3B0eohoFl_pGD75ZzX-onQsE",
+      authDomain: "furqantuitions.firebaseapp.com",
+      databaseURL: "https://furqantuitions-default-rtdb.firebaseio.com",
+      projectId: "furqantuitions",
+      storageBucket: "furqantuitions.appspot.com",
+      messagingSenderId: "816451833675",
+      appId: "1:816451833675:web:eda7c6a26f8e202effa2ce"
+    };
 
-<style>
-body{font-family:Roboto;background:#eef3f7;margin:0}
-h1{text-align:center;margin:20px;color:#2c3e50}
-.panel{max-width:900px;margin:20px auto;background:#fff;padding:20px;border-radius:12px;box-shadow:0 6px 20px rgba(0,0,0,.1)}
-input,select,textarea,button{width:100%;padding:10px;margin:6px 0;font-size:16px;border-radius:6px;border:1px solid #ccc}
-button{background:#3498db;color:#fff;border:none;cursor:pointer}
-button:hover{background:#2980b9}
-#calendar{display:flex;flex-wrap:wrap;margin-top:15px}
-#calendar button{flex:1 0 30%;margin:6px;padding:14px;border-radius:10px;font-weight:bold}
-.taken{background:#27ae60;color:#fff}
-.pending{background:#e74c3c;color:#fff}
-.today{border:3px solid #f1c40f}
-#topics{background:#ecf0f1;padding:12px;border-radius:8px;margin-top:15px}
-.hidden{display:none}
-</style>
+    const app = initializeApp(firebaseConfig);
+    const db = getDatabase(app);
 
-<script type="module">
-import { initializeApp } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-app.js";
-import { getDatabase, ref, onValue, set, update } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-database.js";
+    const urlParams = new URLSearchParams(window.location.search);
+    const isTeacher = urlParams.get('teacher') === 'furqan@admin';
 
-const firebaseConfig={
- apiKey:"AIzaSyD5iFJYPEU3B0eohoFl_pGD75ZzX-onQsE",
- authDomain:"furqantuitions.firebaseapp.com",
- databaseURL:"https://furqantuitions-default-rtdb.firebaseio.com",
- projectId:"furqantuitions",
- storageBucket:"furqantuitions.appspot.com",
- messagingSenderId:"816451833675",
- appId:"1:816451833675:web:eda7c6a26f8e202effa2ce"
+    const monthSelect = document.getElementById('monthSelect');
+    const calendar = document.getElementById('calendar');
+    const classModal = document.getElementById('classModal');
+    const topicInput = document.getElementById('topicInput');
+    const subjectSelect = document.getElementById('subjectSelect');
+    const saveBtn = document.getElementById('saveBtn');
+
+    let selectedDate = null;
+
+    function getMonthKey(date) {
+      return `${date.getFullYear()}-${date.getMonth()+1}`;
+    }
+
+    function renderCalendar(year, month) {
+      calendar.innerHTML = '';
+      const daysInMonth = new Date(year, month + 1, 0).getDate();
+
+      for (let d = 1; d <= daysInMonth; d++) {
+        const dayDiv = document.createElement('div');
+        dayDiv.className = 'day';
+        dayDiv.innerText = d;
+
+        const dateKey = `${year}-${month+1}-${d}`;
+        const dayRef = ref(db, `rayyan/classes/${dateKey}`);
+
+        onValue(dayRef, snap => {
+          if (snap.exists()) {
+            dayDiv.classList.add(snap.val().status === 'taken' ? 'taken' : 'missed');
+          }
+        });
+
+        dayDiv.onclick = () => {
+          selectedDate = dateKey;
+          if (isTeacher) classModal.style.display = 'flex';
+          else alert('Only teacher can edit classes');
+        };
+
+        calendar.appendChild(dayDiv);
+      }
+    }
+
+    function populateMonths() {
+      const now = new Date();
+      for (let i = 0; i < 6; i++) {
+        const d = new Date(now.getFullYear(), now.getMonth() - i, 1);
+        const opt = document.createElement('option');
+        opt.value = `${d.getFullYear()}-${d.getMonth()}`;
+        opt.text = d.toLocaleString('default', { month: 'long', year: 'numeric' });
+        monthSelect.appendChild(opt);
+      }
+    }
+
+    monthSelect.onchange = () => {
+      const [y, m] = monthSelect.value.split('-');
+      renderCalendar(parseInt(y), parseInt(m));
+    };
+
+    saveBtn.onclick = () => {
+      const topic = topicInput.value;
+      const subject = subjectSelect.value;
+
+      update(ref(db, `rayyan/classes/${selectedDate}`), {
+        topic,
+        subject,
+        status: 'taken'
+      });
+
+      update(ref(db, `rayyan/overall/${subject}`), {
+        [selectedDate]: topic
+      });
+
+      classModal.style.display = 'none';
+    };
+
+    populateMonths();
+    const now = new Date();
+    renderCalendar(now.getFullYear(), now.getMonth());
+
+    const overallRef = ref(db, 'rayyan/overall');
+    onValue(overallRef, snap => {
+      const maths = document.getElementById('mathsTopics');
+      const physics = document.getElementById('physicsTopics');
+      maths.innerHTML = physics.innerHTML = '';
+
+      if (snap.exists()) {
+        Object.entries(snap.val().maths || {}).forEach(([_, t]) => maths.innerHTML += `<li>${t}</li>`);
+        Object.entries(snap.val().physics || {}).forEach(([_, t]) => physics.innerHTML += `<li>${t}</li>`);
+      }
+    });
+  </script>  <style>
+    body {
+      margin: 0;
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+      color: #fff;
+    }
+    header {
+      padding: 20px;
+      font-size: 28px;
+      font-weight: 600;
+      text-align: center;
+    }
+    .container {
+      max-width: 1100px;
+      margin: auto;
+      padding: 20px;
+    }
+    select {
+      padding: 10px;
+      border-radius: 8px;
+      border: none;
+      margin-bottom: 20px;
+      font-size: 16px;
+    }
+    .calendar {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      gap: 10px;
+    }
+    .day {
+      padding: 20px;
+      border-radius: 14px;
+      background: rgba(255,255,255,0.1);
+      text-align: center;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+    .day:hover { transform: scale(1.05); }
+    .taken { background: #1db954; }
+    .missed { background: #d9534f; }
+
+    .overall {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+      margin-top: 40px;
+    }
+    .card {
+      background: rgba(255,255,255,0.1);
+      border-radius: 16px;
+      padding: 20px;
+    }
+
+    #classModal {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.7);
+      justify-content: center;
+      align-items: center;
+    }
+    .modal {
+      background: #111;
+      padding: 30px;
+      border-radius: 16px;
+      width: 300px;
+    }
+    input, button {
+      width: 100%;
+      padding: 10px;
+      margin-top: 10px;
+      border-radius: 8px;
+      border: none;
+    }
+    button {
+      background: #1db954;
+      color: #fff;
+      font-weight: 600;
+      cursor: pointer;
+    }
+  </style></head>
+<body>
+  <header>Furqan Tuitions – Rayyan</header>  <div class="container">
+    <select id="monthSelect"></select>
+    <div class="calendar" id="calendar"></div><div class="overall">
+  <div class="card">
+    <h3>Maths – Topics Covered</h3>
+    <ul id="mathsTopics"></ul>
+  </div>
+  <div class="card">
+    <h3>Physics – Topics Covered</h3>
+    <ul id="physicsTopics"></ul>
+  </div>
+</div>
+
+  </div>  <div id="classModal">
+    <div class="modal">
+      <h3>Mark Class</h3>
+      <select id="subjectSelect">
+        <option value="maths">Maths</option>
+        <option value="physics">Physics</option>
+      </select>
+      <input id="topicInput" placeholder="Topic studied" />
+      <button id="saveBtn">Save</button>
+    </div>
+  </div>
+</body>
+</html> appId:"1:816451833675:web:eda7c6a26f8e202effa2ce"
 };
 
 const app=initializeApp(firebaseConfig);
