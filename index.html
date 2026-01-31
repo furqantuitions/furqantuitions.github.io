@@ -1,435 +1,148 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Salancer Tuitions | O-Level & A-Level Tuition</title>
-    <meta name="description" content="Salancer Tuitions offers expert O-Level and A-Level tuition services, helping students excel academically with personalized tutoring.">
-    <link
-      href="https://cdn.jsdelivr.net/npm/remixicon@4.2.0/fonts/remixicon.css"
-      rel="stylesheet"
-    />
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
-      integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=="
-      crossorigin="anonymous"
-      referrerpolicy="no-referrer"
-    />
-    <link rel="stylesheet" href="style.css" />
-    <link rel="stylesheet" href="swiper-bundle.min.css" />
-  </head>
-  <body>
-    <div class="header">
-      <button onclick="openNav()" class="navbar-toggler" type="button">
-        <i class="ri-menu-line sidebar-btn"></i>
-      </button>
-      <div class="navbar">
-        <a href="index.html">Home</a>
-        <a href="about.html">About</a>
-        <a href="blog.html">Blog</a> <!-- Added Blog Link -->
-        <a href="contact.html">Contact Us</a>
-        <div class="header-button">
-          <a href="tutor.html" class="Btn"></a>
-        </div>
-      </div>
-      <!-- open sidebar -->
-      <aside class="sidepanel" id="mysidepanel">
-        <div class="sidebar flex">
-          <button onclick="closeNav()" type="button" class="closebtn btn_hover1">
-            <i class="fa-solid fa-xmark"></i>
-          </button>
-        </div>
-        <!-- -----------side menus--------------- -->
-        <ul>
-          <li><a href="#" class="nav-link active">Home</a></li>
-          <li><a href="about.html" class="nav-link">About</a></li>
-          <li><a href="blog.html" class="nav-link">Blog</a></li> <!-- Added Blog Link -->
-          <li><a href="contact.html" class="nav-link">Contact Us</a></li>
-        </ul>
-      </aside>
-      <div class="nav-right flex">
-        <i onclick="rightOpenNav()" class="fa-solid fa-bars"></i>
-      </div>
-    </div>
+<!DOCTYPE html><html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Furqan Tuitions</title>
+  <style>
+    body { font-family: Arial, sans-serif; }
+    #calendar button { margin: 5px; padding: 10px; border-radius: 5px; border: 1px solid #ccc; cursor: pointer; }
+    .taken { background-color: #4CAF50; color: white; }
+    .pending { background-color: #f44336; color: white; }
+    .today { border: 2px solid #2196F3; }
+    #topics, #classTopics { margin-top: 10px; }
+  </style>
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-app.js";
+    import { getDatabase, ref, onValue, set, update } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-database.js";const firebaseConfig = {
+  apiKey: "AIzaSyD5iFJYPEU3B0eohoFl_pGD75ZzX-onQsE",
+  authDomain: "furqantuitions.firebaseapp.com",
+  databaseURL: "https://furqantuitions-default-rtdb.firebaseio.com",
+  projectId: "furqantuitions",
+  storageBucket: "furqantuitions.appspot.com",
+  messagingSenderId: "816451833675",
+  appId: "1:816451833675:web:eda7c6a26f8e202effa2ce"
+};
 
-    <!-- -----------------------------------------Home--------------------------------------- -->
-    <div class="hero">
-      <div class="video-container">
-        <div class="video">
-          <video src="video.mp4" autoplay loop muted></video>
-          <div class="overlay"></div>
-        </div>
-        <div class="on-overlay">
-         
-          <div class="hero-content">
-           
-            <p>Salancer Tuitions</p>
-            <h1>Find Yourself a Perfect Teacher for O-Level & A-Level</h1>
-            <a href="tuition.html" class="Btn2"></a>
-          </div>
-        </div>
-      </div>
-    </div>
+const app = initializeApp(firebaseConfig);
+const db = getDatabase(app);
 
-    <!-- -----------------------------------------About us--------------------------------------- -->
-    <section class="about">
-      <div class="container">
-        <div class="about-content">
-          <h1>About Us</h1>
-          <p>
-            Welcome to Salancer Tuitions! We specialize in providing personalized O-Level and A-Level tuition services tailored to meet the unique needs of each student. Our dedicated tutors are experts in their fields, committed to helping students achieve academic excellence and build confidence in their studies. Whether you need help with math, science, languages, or any other subject, we have the right tutor for you. Join us today and experience the difference quality tutoring can make in your academic journey. We believe in fostering a supportive and encouraging learning environment to ensure every student reaches their full potential. Contact us now to get started!
-          </p>
-          <a href="about.html" class="Btn"></a>
-        </div>
-        <div class="about-img">
-          <img src="about1.jpg" alt="Salancer Tuitions - About Us" />
-        </div>
-      </div>
-</section>
-     <!-- -----------------------------------------Services--------------------------------------- -->
-     <div class="services-section">
-      <section class="services">
-        <div class="container">
-          <div class="services-content">
-            <h1>What We Offer</h1>
-            <p>
-              At Salancer Tuitions, we are committed to guiding students through their academic journeys with comprehensive and tailored support for O-Levels, A-Levels, primary, and secondary education.
-            </p>
-            </div>
-            <div class="service-box-container">
-              <div class="service-box">
-                <i class="ri-book-open-fill"></i>
-                <h1>O-Levels Tutoring</h1>
-                <p>
-                  Our expert tutors provide specialized instruction to help students excel in their O-Level examinations.
-                </p>
-           
-              </div>
-            
-              <div class="service-box">
-                <i class="ri-book-3-fill"></i>
-                <h1>A-Levels Tutoring</h1>
-                <p>
-                  We offer comprehensive support for A-Level students, ensuring they achieve top grades and prepare for university.
-                </p>
-              
-              </div>
-            
-              <div class="service-box">
-                <i class="ri-pencil-ruler-fill"></i>
-                <h1>Primary Education</h1>
-                <p>
-                  Our primary education program focuses on building a strong foundation in core subjects for young learners.
-                </p>
-              
-              </div>
-            
-              <div class="service-box">
-                <i class="ri-book-2-fill"></i>
-                <h1>Secondary Education</h1>
-                <p>
-                  We provide targeted support for secondary school students, helping them succeed in their academic pursuits.
-                </p>
-             
-              </div>
-            
-              <div class="service-box">
-                <i class="ri-lightbulb-flash-fill"></i>
-                <h1>Exam Preparation</h1>
-                <p>
-                  Our tailored exam preparation services ensure students are confident and ready to excel in their exams.
-                </p>
-           
-              </div>
-            
-              <div class="service-box">
-                <i class="ri-chat-4-fill"></i>
-                <h1>Personalized Tutoring</h1>
-                <p>
-                  We offer personalized tutoring sessions to address each student's unique learning needs and goals.
-                </p>
-               
-              </div>
-            </div>
-            </div>
-            
-      </section>
-    </div>
+const months = ["January","February","March","April","May","June","July","August","September","October","November","December"];
 
-    <!-- -----------------------------------------FAQs--------------------------------------- -->
-    <div class="faq-section">
-      <section class="faq">
-        <div class="container">
-          <div class="services-content">
-            <div class="faq-animation">
-              <i class="ri-chat-history-fill"></i>
-            </div>
-            <h1>Frequently Asked Questions</h1>
-            <p>
-              Feeling inquisitive? Have a read through some of our FAQs or contact our supporters for help.
-            </p>
-            </div>
-            <!-- accordion -->
-            <div class="value__accordion-item">
-              <header class="value__accordion-header">
-                <div class="value__accordion-icon">
-                  <i class="ri-shield-cross-fill"></i>
-                </div>
-                <h3 class="value__accordion-title">
-                  Can I choose my tutor?
-                </h3>
-                <div class="value__accordion-arrow">
-                  <i class="ri-arrow-down-s-fill"></i>
-                </div>
-              </header>
-              <div class="value__accordion-content">
-                <p class="value__accordion-description">
-                  Yes, we provide profiles of our tutors, allowing you to choose the one that best fits your learning style and needs.
-                </p>
-              </div>
-            </div>
+let currentStudent = '';
+let currentData = {};
 
-            
-            <div class="value__accordion-item">
-              <header class="value__accordion-header">
-                <div class="value__accordion-icon">
-                  <i class="ri-book-open-fill"></i>
-                </div>
-                <h3 class="value__accordion-title">
-                  What subjects do you offer tutoring for?
-                </h3>
-                <div class="value__accordion-arrow">
-                  <i class="ri-arrow-down-s-fill"></i>
-                </div>
-              </header>
-              <div class="value__accordion-content">
-                <p class="value__accordion-description">
-                  We offer tutoring for a wide range of subjects including O-Levels, A-Levels, primary, and secondary education subjects.
-                </p>
-              </div>
-            </div>
-            
-            <div class="value__accordion-item">
-              <header class="value__accordion-header">
-                <div class="value__accordion-icon">
-                  <i class="ri-calendar-check-fill"></i>
-                </div>
-                <h3 class="value__accordion-title">
-                  How do I schedule a session?
-                </h3>
-                <div class="value__accordion-arrow">
-                  <i class="ri-arrow-down-s-fill"></i>
-                </div>
-              </header>
-              <div class="value__accordion-content">
-                <p class="value__accordion-description">
-                  Scheduling a session is easy! Simply click on "Find Tutor" above, choose your preferred tutor, and select a time that works for you.
-                </p>
-              </div>
-            </div>
-            
-            <div class="value__accordion-item">
-              <header class="value__accordion-header">
-                <div class="value__accordion-icon">
-                  <i class="ri-group-fill"></i>
-                </div>
-                <h3 class="value__accordion-title">
-                  Do you offer group tutoring sessions?
-                </h3>
-                <div class="value__accordion-arrow">
-                  <i class="ri-arrow-down-s-fill"></i>
-                </div>
-              </header>
-              <div class="value__accordion-content">
-                <p class="value__accordion-description">
-                  Yes, we offer both one-on-one and group tutoring sessions. You can choose the format that best suits your learning needs.
-                </p>
-              </div>
-            </div>
-            
-            <div class="value__accordion-item">
-              <header class="value__accordion-header">
-                <div class="value__accordion-icon">
-                  <i class="ri-user-star-fill"></i>
-                </div>
-                <h3 class="value__accordion-title">
-                  What qualifications do your tutors have?
-                </h3>
-                <div class="value__accordion-arrow">
-                  <i class="ri-arrow-down-s-fill"></i>
-                </div>
-              </header>
-              <div class="value__accordion-content">
-                <p class="value__accordion-description">
-                  Our tutors at Salancer Tuitions are highly qualified, with many holding advanced degrees in their subject areas. They also have extensive teaching experience.
-                </p>
-              </div>
-            </div>
-            
-            <div class="value__accordion-item">
-              <header class="value__accordion-header">
-                <div class="value__accordion-icon">
-                  <i class="ri-shield-check-fill"></i>
-                </div>
-                <h3 class="value__accordion-title">
-                  Is there a free trial available?
-                </h3>
-                <div class="value__accordion-arrow">
-                  <i class="ri-arrow-down-s-fill"></i>
-                </div>
-              </header>
-              <div class="value__accordion-content">
-                <p class="value__accordion-description">
-                  Yes, Salancer Tuitions offers a free trial session so you can experience our tutoring services before making a commitment.
-                </p>
-              </div>
-            </div>
-            </div>
-                
-          </section>
-        </div>
-        
-    <!----------------------------------------- Testimonial ------------------------------------------->
-    <section class="view__section section" id="views-section">
-      <div class="container">
-        <div class="services-content">
-          <h1>What our students are saying</h1>
-          <p>
-            Hear from our students who have benefited from our O-Level and A-Level tutoring services.
-          </p>
-        </div>
-        <div class="popular">
-          <div class="swiper views__swiper">
-            <div class="swiper mySwiper">
-              <div class="swiper-wrapper">
-                <div class="swiper-slide">
-                  <div class="swiper__client-msg">
-                    <p>
-                      My experience with Salancer Tuitions has been exceptional. They
-                      helped me understand complex O-Level concepts with ease. Highly
-                      recommended! <br />
-                      ⭐️⭐️⭐️⭐️⭐️
-                    </p>
-                  </div>
-                  <div class="swiper__client-data grid">
-                    <div class="client-data">
-                      <p class="views__data2">Zayan</p>
-                      <p class="views__data1">Happy O-Level Student</p>
-                    </div>
-                  </div>
-                </div>
-    
-                <div class="swiper-slide">
-                  <div class="swiper__client-msg">
-                    <p>
-                      Salancer Tuitions tailored their teaching to fit my learning
-                      style perfectly. I'm grateful for their dedicated approach
-                      and support. <br />
-                      ⭐️⭐️⭐️⭐️⭐️
-                    </p>
-                  </div>
-                  <div class="swiper__client-data grid grid-two-column">
-                    <div class="client-data">
-                      <p class="views__data2">Zoya</p>
-                      <p class="views__data1">Happy Olevel Student</p>
-                    </div>
-                  </div>
-                </div>
-    
-                <div class="swiper-slide">
-                  <div class="swiper__client-msg">
-                    <p>
-                      Rawaha  benefited greatly from Salancer Tuitions. The
-                      tutors' expertise and personalized attention made a
-                      significant difference in his academic performance. <br />
-                      ⭐️⭐️⭐️⭐️⭐️
-                    </p>
-                  </div>
-                  <div class="swiper__client-data grid grid-two-column">
-                    <div class="client-data">
-                      <p class="views__data2">Rawaha</p>
-                      <p class="views__data1">Parent</p>
-                    </div>
-                  </div>
-                </div>
-    
-                <!-- Additional slides can be added as needed -->
-    
-              </div>
-              <div class="swiper-pagination"></div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-    
-  <!----------------------------------------- Banner ------------------------------------------->
-  <section class="banner">
-    <div class="container">
-      <div class="services-content">
-          <h1>Unlock Your Potential with Salancer Tuitions</h1>
-          <p>
-            "Empower your academic journey with confidence and clarity. Let us guide you
-            towards achieving your O-Level and A-Level educational goals with personalized support and expertise."
-          </p>
-          
-        <a href="tutor.html" class="Btn2"></a>
-      </div>
-      <div class="box">
-        <div class="services-content">
-          <h1>Newsletter</h1>
-          <p>Subscribe for the latest updates on O-Level and A-Level tutoring</p>
-        </div>
-        <form action="" id="newsletter">
-          <input
-            type="email"
-            id="email"
-            name=""
-            placeholder="Drop your email"
-            class="newsletter"
-          />
-          <button class="send-btn">
-            <div class="svg-wrapper-1">
-              <div class="svg-wrapper">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  viewBox="0 0 24 24"
-                  width="24"
-                  height="24"
-                >
-                  <path fill="none" d="M0 0h24v24H0z"></path>
-                  <path
-                    fill="currentColor"
-                    d="M1.946 9.315c-.522-.174-.527-.455.01-.634l19.087-6.362c.529-.176.832.12.684.638l-5.454 19.086c-.15.529-.455.547-.679.045L12 14l6-8-8 6-8.054-2.685z"
-                  ></path>
-                </svg>
-              </div>
-            </div>
-            <span>Send</span>
-          </button>
-        </form>
-      </div>
-    </div>
-  </section>
+window.onload = () => {
+  const now = new Date();
+  document.getElementById('monthSelect').value = months[now.getMonth()];
+};
 
-    <!----------------------------------------- Footer ------------------------------------------->
-   
+window.loadStudent = function () {
+  const name = document.getElementById('studentName').value.trim();
+  if (!name) return;
+  currentStudent = name;
+  document.getElementById('login').style.display = 'none';
+  document.getElementById('studentPanel').style.display = 'block';
+  document.getElementById('studentTitle').innerText = name;
+  const studentRef = ref(db, 'students/' + name);
+  onValue(studentRef, snap => {
+    currentData = snap.val() || {};
+    renderCalendar(currentData, name);
+    renderOverallTopics(currentData);
+  });
+};
 
-    <div class="copywrite">
-      <span>Salancer Tuitions</span> | All rights reserved
-    </div>
+function renderCalendar(data, name) {
+  const month = document.getElementById('monthSelect').value;
+  const m = data[month] || {};
+  const calendar = document.getElementById('calendar');
+  calendar.innerHTML = '';
 
-    <!----------------------------------------- backtotop ------------------------------------------->
-    <button onclick="scrollToTop()" class="btn-hover2" id="backToTop">
-      <i class="fa-solid fa-angle-up"></i>
-    </button>
-    <script src="https://www.gstatic.com/firebasejs/8.7.1/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/8.7.1/firebase-auth.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/8.7.1/firebase-firestore.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/8.7.1/firebase-database.js"></script>
-    <script src="firebase.js"></script>
-    <script src="swiper-bundle.min.js"></script>
-    <script src="script.js"></script>
-  </body>
+  const today = new Date().toISOString().split('T')[0];
+
+  Object.keys(m).sort().forEach(date => {
+    const btn = document.createElement('button');
+    btn.innerText = `${date} ${m[date].time} - ${m[date].taken ? 'Taken' : 'Pending'}`;
+    btn.className = `${m[date].taken ? 'taken' : 'pending'}${date===today ? ' today' : ''}`;
+    btn.onclick = () => showClassDetails(month, date);
+    calendar.appendChild(btn);
+  });
+
+  let total = Object.keys(m).length;
+  let taken = Object.values(m).filter(c => c.taken).length;
+  document.getElementById('summary').innerHTML = `Total: ${total} | Taken: ${taken} | Left: ${total-taken}`;
+}
+
+function renderOverallTopics(data) {
+  let maths = [], physics = [];
+  for(let month in data){
+    for(let date in data[month]){
+      if(data[month][date].maths) maths.push(data[month][date].maths);
+      if(data[month][date].physics) physics.push(data[month][date].physics);
+    }
+  }
+  document.getElementById('topics').innerHTML = `<b>Overall Topics Covered:</b><br>Maths: ${maths.join(', ')}<br>Physics: ${physics.join(', ')}`;
+}
+
+function showClassDetails(month, date){
+  const cls = currentData[month][date];
+  const maths = cls.maths || '';
+  const physics = cls.physics || '';
+  const updateMaths = prompt(`Maths topic for ${date}:`, maths);
+  const updatePhysics = prompt(`Physics topic for ${date}:`, physics);
+  update(ref(db, 'students/' + currentStudent + '/' + month + '/' + date), { taken: true, maths: updateMaths, physics: updatePhysics });
+}
+
+window.addStudentSchedule = function () {
+  const name = document.getElementById('newStudent').value.trim();
+  const month = document.getElementById('newMonth').value;
+  const daysText = document.getElementById('newDays').value;
+  if (!name || !month || !daysText) return;
+  const days = daysText.split(',').map(d => d.trim());
+  const updates = {};
+  const now = new Date();
+  days.forEach(dayTime => {
+    const [day, time] = dayTime.split(' ');
+    const date = new Date(now.getFullYear(), months.indexOf(month), parseInt(day));
+    const dateKey = date.toISOString().split('T')[0];
+    updates[dateKey] = { taken: false, time };
+  });
+  set(ref(db, 'students/' + name + '/' + month), updates);
+  alert('Student and schedule added');
+};
+
+  </script>
+</head>
+<body>
+  <h1>Furqan Tuitions</h1>  <div id="login">
+    <h2>Student Login</h2>
+    <input id="studentName" placeholder="Enter Student Name" />
+    <button onclick="loadStudent()">View Schedule</button>
+  </div>  <div id="studentPanel" style="display:none">
+    <h2 id="studentTitle"></h2>
+    <select id="monthSelect" onchange="renderCalendar(currentData, currentStudent)"></select>
+    <p id="summary"></p>
+    <div id="calendar"></div>
+    <div id="topics"></div>
+  </div>  <hr />  <div id="admin">
+    <h2>Admin Panel</h2>
+    <h3>Add New Student & Monthly Schedule</h3>
+    <input id="newStudent" placeholder="Student Name" />
+    <select id="newMonth">
+      <option value="January">January</option>
+      <option value="February">February</option>
+      <option value="March">March</option>
+      <option value="April">April</option>
+      <option value="May">May</option>
+      <option value="June">June</option>
+      <option value="July">July</option>
+      <option value="August">August</option>
+      <option value="September">September</option>
+      <option value="October">October</option>
+      <option value="November">November</option>
+      <option value="December">December</option>
+    </select>
+    <textarea id="newDays" placeholder="Enter days and time (comma separated, e.g. 5 10:00,7 12:00)"></textarea>
+    <button onclick="addStudentSchedule()">Add Student & Schedule</button>
+  </div>
+</body>
 </html>
